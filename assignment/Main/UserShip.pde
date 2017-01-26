@@ -1,0 +1,4 @@
+class UserShip extends GameObject
+{
+  
+}
