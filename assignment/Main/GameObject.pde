@@ -5,9 +5,7 @@ class GameObject
   float size;
   
   GameObject()
-  {
-    println("In GameObject default constructor");
-  }
+  {}
   
   void update()
   {}
