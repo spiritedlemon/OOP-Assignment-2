@@ -55,10 +55,10 @@ class UserShip extends GameObject
     
   }
   
-  void render() // Overrides the method in the base class
+  void render() // Takes priority over the 'render()' method in the 'GameObject' class
   {
     
-    pushMatrix(); // Stores the current transform
+    pushMatrix(); // Stores current transform
     translate(pos.x, pos.y);
     //text("Health: " + health, -20, -50);
     

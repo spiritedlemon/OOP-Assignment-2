@@ -1,19 +1,21 @@
 //C15413218 - Simon O'Leary - DT228/2 OOP Assignment
 
 //Game is called Asteroids: The player shoots asteroids which explode and give score
-//Randomly space ships show up and shoot back
 
 void setup()
 {
-  size(500, 500);
+  size(720, 640);  //Recommended ~720,640 -- smaller screen makes it harder to dodge asteroids
   //Pass the info into the userShip class to create their ship controls
-  UserShip player1 = new UserShip(width / 2, height / 2, 0, 50, 'w', 's', 'a', 'd', ' '); 
+  UserShip player1 = new UserShip(width / 2, height / 2, 0, 30, 'w', 's', 'a', 'd', ' '); 
   
   
   gameObjects.add(player1);
 }
 
+//Variables
 ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
+boolean[] keys = new boolean[1000];
+
 
 void draw()
 {
@@ -25,4 +27,17 @@ void draw()
     go.update();
     go.render();    
   }
+}
+
+//Two functions used to discern if a key is being held down or not
+void keyPressed()
+{ 
+  keys[keyCode] = true;
+  println(keys[keyCode]);  //Error checking
+}
+ 
+ 
+void keyReleased()
+{
+  keys[keyCode] = false; 
 }
