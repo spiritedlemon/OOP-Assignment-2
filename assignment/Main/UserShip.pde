@@ -16,8 +16,8 @@ class UserShip extends GameObject
   
   
   
-  //Values passed into this fnc from main allocating player controls and size
-  Player(float x, float y, float theta, float size, char up, char down, char left, char right, char shoot)
+  //Values passed into this fnc from main, allocating player controls and size
+  UserShip(float x, float y, float theta, float size, char up, char down, char left, char right, char shoot)
   {
     pos = new PVector(x, y);
     forward = new PVector(0, -1);
@@ -32,7 +32,7 @@ class UserShip extends GameObject
     this.right = right;
     this.up = up;
     this.down = down;
-    this.fire = fire;
+    this.shoot = shoot;
     this.lives = 3;
     create();
     
@@ -57,6 +57,7 @@ class UserShip extends GameObject
   
   void render() // Overrides the method in the base class
   {
+    
     pushMatrix(); // Stores the current transform
     translate(pos.x, pos.y);
     //text("Health: " + health, -20, -50);
@@ -66,6 +67,7 @@ class UserShip extends GameObject
     // Use a PShape
     shape(shape, 0, 0);
     popMatrix(); // Restore the transform
+    
   }
   
   

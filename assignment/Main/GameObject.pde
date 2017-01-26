@@ -1,5 +1,6 @@
 class GameObject
 {
+  
   PVector pos;
   PVector forward;
   float size;
@@ -12,4 +13,5 @@ class GameObject
   
   void render()
   {}
+  
 }
