@@ -4,7 +4,9 @@
 
 void setup()
 {
+  
   size(720, 640);  //Recommended ~720,640 -- smaller screen makes it harder to dodge asteroids
+  
   //Pass the info into the userShip class to create their ship controls
   UserShip player1 = new UserShip(width / 2, height / 2, 0, 30, 'w', 's', 'a', 'd', ' '); 
   
@@ -13,8 +15,10 @@ void setup()
 }
 
 //Variables
+float timeDelta = 1.0f / 60.0f; //This will be used in the UserShip class
+
 ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
-boolean[] keys = new boolean[1000];
+boolean[] keys = new boolean[1000];  //Used to discern if a key is being held down
 
 
 void draw()
@@ -40,4 +44,15 @@ void keyPressed()
 void keyReleased()
 {
   keys[keyCode] = false; 
+}
+
+
+//This function is used in the UserShip class to assign momentum to the ship
+boolean checkKey(int k)
+{
+  if (keys.length >= k) 
+  {
+    return keys[k] || keys[Character.toUpperCase(k)];  
+  }
+  return false;
 }

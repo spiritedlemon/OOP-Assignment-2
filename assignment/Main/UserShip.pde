@@ -13,7 +13,11 @@ class UserShip extends GameObject
   int lives;
   
   PVector force;
+  float power = 100;
   
+  //float fireRate = 2;
+  //float toPass = 1.0 / fireRate;    //These variables are for shooting
+  //float elapsed = toPass;
   
   
   //Values passed into this fnc from main, allocating player controls and size
@@ -60,15 +64,20 @@ class UserShip extends GameObject
     
     pushMatrix(); // Stores current transform
     translate(pos.x, pos.y);
-    //text("Health: " + health, -20, -50);
+    //text("Lives: " + health, -20, -50);
     
     rotate(theta);    
 
-    // Use a PShape
     shape(shape, 0, 0);
     popMatrix(); // Restore the transform
     
   }
   
+  
+  //This will be used to move the ship and shoot 
+  void update()
+  {
+    
+  }
   
 }
