@@ -15,9 +15,9 @@ class UserShip extends GameObject
   PVector force;
   float power = 100;
   
-  //float fireRate = 2;
-  //float toPass = 1.0 / fireRate;    //These variables are for shooting
-  //float elapsed = toPass;
+  float fireRate = 2;
+  float toPass = 1.0 / fireRate;    //These variables are for shooting
+  float elapsed = toPass;
   
   
   //Values passed into this fnc from main, allocating player controls and size
@@ -82,7 +82,7 @@ class UserShip extends GameObject
     
     if (checkKey(up))
     {
-      force.add(PVector.mult(forward, power));      
+      force.add(PVector.mult(forward, power));  
     }
     if (checkKey(down))
     {
@@ -98,11 +98,21 @@ class UserShip extends GameObject
     }
     
     
+    //If the shoot button is pressed, create the bullet object
+     if (checkKey(shoot) && elapsed > toPass)
+    {
+      PVector bp = PVector.add(pos, PVector.mult(forward, 40));
+      Bullet b = new Bullet(bp.x, bp.y, theta, 20, 5);
+      gameObjects.add(b);
+      elapsed = 0;
+    }
     
-    accel = PVector.div(force, mass);  //f = ma so a = f/m
+    
+    
+    accel = PVector.div(force, mass);         //f = ma so a = f/m
     vel.add(PVector.mult(accel, timeDelta));  //vel = acc*time
-    pos.add(PVector.mult(vel, timeDelta));     //pos = vel*time
-    force.x = force.y = 0;                      //pos/vel/accel/force are PVectors created above
+    pos.add(PVector.mult(vel, timeDelta));    //pos = vel*time
+    force.x = force.y = 0;                    //pos/vel/accel/force are PVectors created above
     vel.mult(0.99f);
     
     
