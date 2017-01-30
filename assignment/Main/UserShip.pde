@@ -77,6 +77,34 @@ class UserShip extends GameObject
   //This will be used to move the ship and shoot 
   void update()
   {
+    forward.x = sin(theta);    //Forward is a PVector created in the above UserShip function
+    forward.y  = -cos(theta);
+    
+    if (checkKey(up))
+    {
+      force.add(PVector.mult(forward, power));      
+    }
+    if (checkKey(down))
+    {
+      force.add(PVector.mult(forward, -power));      
+    }
+    if (checkKey(left))  
+    {
+      theta -= 0.1f;
+    }
+    if (checkKey(right))
+    {
+      theta += 0.1f;
+    }
+    
+    
+    
+    accel = PVector.div(force, mass);  //f = ma so a = f/m
+    vel.add(PVector.mult(accel, timeDelta));  //vel = acc*time
+    pos.add(PVector.mult(vel, timeDelta));     //pos = vel*time
+    force.x = force.y = 0;                      //pos/vel/accel/force are PVectors created above
+    vel.mult(0.99f);
+    
     
   }
   

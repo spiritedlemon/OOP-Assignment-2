@@ -37,7 +37,6 @@ void draw()
 void keyPressed()
 { 
   keys[keyCode] = true;
-  println(keys[keyCode]);  //Error checking
 }
  
  
