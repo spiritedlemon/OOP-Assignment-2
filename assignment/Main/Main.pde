@@ -17,6 +17,7 @@ void setup()
 
 //Variables
 float timeDelta = 1.0f / 60.0f; //This variable tracks time passing - Used to kill bullets that have been alive too long
+int initialRadius = 50;
 
 ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 boolean[] keys = new boolean[1000];  //Used to discern if a key is being held down
@@ -33,6 +34,12 @@ void draw()
     go.update();
     go.render();    
   }
+}
+
+void test()
+{
+   PVector position = new PVector((int)(Math.random()*width), (int)(Math.random()*height-100)); 
+   gameObjects.add(new Asteroid(position, initialRadius)); 
 }
 
 
