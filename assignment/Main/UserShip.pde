@@ -114,7 +114,7 @@ class UserShip extends GameObject
     pos.add(PVector.mult(vel, timeDelta));    //pos = vel*time
     force.x = force.y = 0;                    //pos/vel/accel/force are PVectors created above
     vel.mult(0.99f);
-    
+    elapsed += timeDelta;                    //Elapsed increases with time
     
   }
   

@@ -30,7 +30,40 @@ class Bullet extends GameObject // Gets everything from GameObject
     
   }
   
-  
+  void update() // Overrides the method in the base class
+  {
+    forward.x = sin(theta);
+    forward.y = - cos(theta);      //These decide the direction the bullet travels and its orientation
+    
+    
+    pos.add(PVector.mult(PVector.mult(forward, speed), timeDelta));  //Causes the bullet to move forward
+    if (pos.x > width)
+    {
+      pos.x = 0;
+    }
+    if (pos.x < 0)
+    {
+      pos.x = width;
+    }
+    if (pos.y > height)
+    {
+      pos.y = 0;
+    }
+    if (pos.y < 0)
+    {
+      pos.y = height;
+    }
+    alive += timeDelta;
+    if (alive > timeLeft)
+    {
+      gameObjects.remove(this);  //This removes the bullet after a few seconds
+    }
+    
+    
+    
+    
+    
+  }
   
   
 }
