@@ -22,6 +22,15 @@ class Asteroid extends GameObject
      rotation = new PVector(cos(angle), sin(angle));
      spin = (float)(Math.random()*limit-limit/2);
       
+     //create();
+   }
+   
+   //void create()
+   {
+     
+     
+     
+     
      
    }
    
@@ -38,7 +47,11 @@ class Asteroid extends GameObject
    
    void render()
    {
+     pushMatrix();
      
+     ellipse(pos.x, pos.y, radius*2, radius*2);  //The shape it will take
+     
+     popMatrix();
    }
    
     

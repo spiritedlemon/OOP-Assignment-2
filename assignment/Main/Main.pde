@@ -13,6 +13,7 @@ void setup()
   
   
   gameObjects.add(player1);
+  test();
 }
 
 //Variables

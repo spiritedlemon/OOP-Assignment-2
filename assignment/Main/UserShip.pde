@@ -101,7 +101,7 @@ class UserShip extends GameObject
     
     
     //If the shoot button is pressed, create the bullet object
-     if (checkKey(shoot) && elapsed > toPass)
+    if (checkKey(shoot) && elapsed > toPass)
     {
       PVector bp = PVector.add(pos, PVector.mult(forward, 40));
       Bullet b = new Bullet(bp.x, bp.y, theta, 20, 5);      //Passes this info to the 'bullet' class

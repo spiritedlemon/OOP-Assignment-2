@@ -28,7 +28,7 @@ class Bullet extends GameObject
     pushMatrix();
     translate(pos.x, pos.y);      //This is to decide where the bullet originates from
     rotate(theta);
-    line(0, - size / 2, 0, size / 2);
+    line(0, - size / 2, 0, size / 2);  //The shape it will take
     popMatrix();
     
   }
