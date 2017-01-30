@@ -1,3 +1,5 @@
+//This class determines the look, starting point, velocity and fire rate of the player's ship
+
 class UserShip extends GameObject
 {
   
@@ -102,9 +104,9 @@ class UserShip extends GameObject
      if (checkKey(shoot) && elapsed > toPass)
     {
       PVector bp = PVector.add(pos, PVector.mult(forward, 40));
-      Bullet b = new Bullet(bp.x, bp.y, theta, 20, 5);
+      Bullet b = new Bullet(bp.x, bp.y, theta, 20, 5);      //Passes this info to the 'bullet' class
       gameObjects.add(b);
-      elapsed = 0;
+      elapsed = 0;          //Starts timer
     }
     
     

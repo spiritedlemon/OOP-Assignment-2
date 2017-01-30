@@ -1,4 +1,7 @@
-class Bullet extends GameObject // Gets everything from GameObject
+//This class is used to determine the velocity, start point and visual of the bullets fired in game
+//Also used to determine how they act upon collision with other objects
+
+class Bullet extends GameObject 
 {
   
   PVector pos;
