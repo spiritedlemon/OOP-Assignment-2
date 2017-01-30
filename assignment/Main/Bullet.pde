@@ -62,7 +62,6 @@ class Bullet extends GameObject // Gets everything from GameObject
     
     
     
-    
   }
   
   
