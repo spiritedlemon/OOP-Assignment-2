@@ -39,8 +39,9 @@ void draw()
 
 void test()
 {
-   PVector position = new PVector((int)(Math.random()*width), (int)(Math.random()*height-100)); 
-   gameObjects.add(new Asteroid(position, initialRadius)); 
+   float aposx = 50;    //Variable AsteroidPositionX
+   float aposy = 50;
+   gameObjects.add(new Asteroid(aposx, aposy, initialRadius)); 
 }
 
 

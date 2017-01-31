@@ -5,14 +5,16 @@ class Asteroid extends GameObject
    float radius;
    int maxLimit = 1;    //This will be used to track the max number of asteroids at any one time [maybe]
    float limit = 0.05;
-   PVector position;
+   //PVector position;
    PVector velocity;
    PVector rotation;
    float spin;
+   
+   PShape shapeA;
     
-   public Asteroid(PVector pos, float radius)
+   public Asteroid(float x, float y, float radius)
    {
-     this.position = pos;
+     pos = new PVector(x,y);
      this.radius = radius;
      float angle = random(2 * PI);
      velocity = new PVector(cos(angle), sin(angle));
@@ -30,11 +32,9 @@ class Asteroid extends GameObject
      
      
      
-     
-     
    }
    
-   void division()  //(Split & break arent allowed) - This function deals with how the asteroids split/divide upon impact
+   //void division()  //(Split & break arent allowed) - This function deals with how the asteroids split/divide upon impact
    {
      
    }
@@ -49,7 +49,7 @@ class Asteroid extends GameObject
    {
      pushMatrix();
      
-     ellipse(pos.x, pos.y, radius*2, radius*2);  //The shape it will take
+     ellipse(pos.x, pos.y, radius, radius);
      
      popMatrix();
    }
