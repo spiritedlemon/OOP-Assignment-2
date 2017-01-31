@@ -13,12 +13,13 @@ void setup()
   
   
   gameObjects.add(player1);
-  test();
 }
 
 //Variables
 float timeDelta = 1.0f / 60.0f; //This variable tracks time passing - Used to kill bullets that have been alive too long
-int initialRadius = 50;
+int initialRadius = 50;    //This is used for the asteroids size
+int Tcounter = 4;      //This will increment ~ every time an asteroid is destroyed (TotalCounter)
+int Ccounter = 0;      //This will keep track of the number of asteroids currently spawned (CurrentCounter)
 
 ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 boolean[] keys = new boolean[1000];  //Used to discern if a key is being held down
@@ -35,13 +36,40 @@ void draw()
     go.update();
     go.render();    
   }
+  
+  if(Ccounter<Tcounter)    //If current number < Total number - Spawn asteroids until there is enough
+  {
+    spawn();
+  }
 }
 
-void test()
+void spawn()
 {
-   float aposx = 50;    //Variable AsteroidPositionX
-   float aposy = 50;
-   gameObjects.add(new Asteroid(aposx, aposy, initialRadius)); 
+  float temp = 0; //Used to save random variable below
+  
+  //Variable ==> AsteroidPositionX / AsteroidPositionY
+  float aposx;    
+  float aposy = random(50, (height-50) );  //randomly assign a height to spawn at
+  
+  temp = random(1,6);    //Randomly spawn on either side of screen
+  if(temp < 3.5)
+  {
+    aposx = 50;
+  }
+  else
+  {
+    aposx = (width - 50);
+  }
+  
+  
+  
+  gameObjects.add(new Asteroid(aposx, aposy, initialRadius));
+   
+  Ccounter++;
+  
+  //error checking
+  println(Ccounter);
+  println(temp);
 }
 
 

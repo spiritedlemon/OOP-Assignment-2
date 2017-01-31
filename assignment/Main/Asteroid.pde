@@ -7,7 +7,7 @@ class Asteroid extends GameObject
    float limit = 0.05;
    PVector velocity;
    float theta;  //Used to decide direction of asteroid
-   float speed = 100;
+   float speed = 80;
    
     
    public Asteroid(float x, float y, float radius)
@@ -15,13 +15,9 @@ class Asteroid extends GameObject
      pos = new PVector(x,y);
      forward = new PVector(0, 1);
      this.radius = radius;
-     float angle = random(2 * PI);
-     velocity = new PVector(cos(angle), sin(angle));
-     velocity.mult((50*50)/(radius*radius));
-     //angle = random(2 * PI);
-      
-     //theta = new PVector(cos(angle), sin(angle));
-      
+     
+     forward.x = random(-1, 1);  //Try keep to small numbers or moves to quickly
+     forward.y = random(-1, 2);  //These are random numbers asssigned to an asteroid on creation to avoid it constantly changing direction
    }
    
    
@@ -34,10 +30,12 @@ class Asteroid extends GameObject
     //This fnc is used to move the asteroids
    void update()
    {
-      forward.x = random(0, 0.9);  //Try keep to small numbers or moves to quickly
-      forward.x = random(1, 1.9);
+      //forward.x = random(-1, 1);  //Try keep to small numbers or moves to quickly
+      //forward.y = random(-1, 2);
      
-      pos.add(PVector.mult(PVector.mult(forward, speed), timeDelta));  //Causes the object to move and (below) stops it leaving the screen
+      pos.add(PVector.mult(PVector.mult(forward, speed), timeDelta));  //Causes the object to move 
+      
+      //below stops the asteroids leaving the screen [They re-appear on the other side]
       if (pos.x > width)
       {
         pos.x = 0;
@@ -61,6 +59,7 @@ class Asteroid extends GameObject
    {
      pushMatrix();
      
+     fill(0);
      ellipse(pos.x, pos.y, radius, radius);
      
      popMatrix();
