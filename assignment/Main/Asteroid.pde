@@ -7,7 +7,7 @@ class Asteroid extends GameObject
    float limit = 0.05;
    PVector velocity;
    float theta;  //Used to decide direction of asteroid
-   float speed = 80;
+   float speed = 90;
    
     
    public Asteroid(float x, float y, float radius)
@@ -23,6 +23,13 @@ class Asteroid extends GameObject
    
    //void division()  //(Split & break arent allowed) - This function deals with how the asteroids split/divide upon impact
    {
+     if(radius < 50)
+     {
+       gameObjects.remove(this);
+       //Ccounter--;        //Counter for Current number of asteroids '-1'
+       
+     }
+     
      
    }
     

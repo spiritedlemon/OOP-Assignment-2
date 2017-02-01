@@ -17,7 +17,7 @@ void setup()
 
 //Variables
 float timeDelta = 1.0f / 60.0f; //This variable tracks time passing - Used to kill bullets that have been alive too long
-int initialRadius = 50;    //This is used for the asteroids size
+int initialRadius = 50;    //This is used for the asteroids size  -  This is actually their diameter but w/e
 int Tcounter = 4;      //This will increment ~ every time an asteroid is destroyed (TotalCounter)
 int Ccounter = 0;      //This will keep track of the number of asteroids currently spawned (CurrentCounter)
 
@@ -39,7 +39,7 @@ void draw()
   
   if(Ccounter<Tcounter)    //If current number < Total number - Spawn asteroids until there is enough
   {
-    spawn();
+    spawn();  //call function to spawn asteroids
   }
 }
 
@@ -49,10 +49,10 @@ void spawn()
   
   //Variable ==> AsteroidPositionX / AsteroidPositionY
   float aposx;    
-  float aposy = random(50, (height-50) );  //randomly assign a height to spawn at
+  float aposy = random(50, (height-50) );  //randomly assign a height to spawn at  [ between 50 <--> (height-50) ]
   
   temp = random(1,6);    //Randomly spawn on either side of screen
-  if(temp < 3.5)
+  if(temp < 3.5)         //Less than 3.5 == left side , else == right side
   {
     aposx = 50;
   }

@@ -33,14 +33,14 @@ class Bullet extends GameObject
     
   }
   
-  void update() // Overrides the method in the base class
+  void update() // See GameObject for overview of method layout
   {
     forward.x = sin(theta);
     forward.y = - cos(theta);      //These decide the direction the bullet travels and its orientation
     
     
     pos.add(PVector.mult(PVector.mult(forward, speed), timeDelta));  //Causes the bullet to move forward
-    if (pos.x > width)
+    if (pos.x > width)                                               //Causes the bullet to re-enter another part of the screen
     {
       pos.x = 0;
     }
@@ -62,6 +62,19 @@ class Bullet extends GameObject
       gameObjects.remove(this);  //This removes the bullet after a few seconds
     }
     
+    
+    for(int i = 0; i < gameObjects.size(); i ++)
+    {
+      GameObject go = gameObjects.get(i);
+      if (go instanceof Asteroid)
+      {
+        Asteroid t = (Asteroid) go;  //asteroid temp(t)
+        if (dist(go.pos.x, go.pos.y, this.pos.x, this.pos.y) < t.radius)
+        {
+          gameObjects.remove(this);
+        }
+      }
+    }
     
     
     

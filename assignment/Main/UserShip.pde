@@ -17,7 +17,7 @@ class UserShip extends GameObject
   PVector force;
   float power = 100;
   
-  float fireRate = 2;
+  float fireRate = 2.5;
   float toPass = 1.0 / fireRate;    //These variables are for shooting
   float elapsed = toPass;
   
@@ -82,6 +82,7 @@ class UserShip extends GameObject
     forward.x = sin(theta);    //Forward is a PVector created in the above UserShip function
     forward.y  = -cos(theta);
     
+    //Controls to move the ship
     if (checkKey(up))
     {
       force.add(PVector.mult(forward, power));  
@@ -97,6 +98,24 @@ class UserShip extends GameObject
     if (checkKey(right))
     {
       theta += 0.1f;
+    }
+    
+    //Causes the ship to re-enter another part of the screen
+    if (pos.x > width)                        
+    {
+      pos.x = 0;
+    }
+    if (pos.x < 0)
+    {
+      pos.x = width;
+    }
+    if (pos.y > height)
+    {
+      pos.y = 0;
+    }
+    if (pos.y < 0)
+    {
+      pos.y = height;
     }
     
     
