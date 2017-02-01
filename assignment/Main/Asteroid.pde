@@ -21,13 +21,17 @@ class Asteroid extends GameObject
    }
    
    
-   //void division()  //(Split & break arent allowed) - This function deals with how the asteroids split/divide upon impact
+   void division()  //(Split & break arent allowed) - This function deals with how the asteroids split/divide upon impact
    {
-     if(radius < 50)
+     if(radius < 50)  //If the asteroid has already split it will be below 50
      {
-       gameObjects.remove(this);
+      // gameObjects.remove(this);
        //Ccounter--;        //Counter for Current number of asteroids '-1'
-       
+     }
+     else      //If the asteroid is yet to split it will use this function so that on-hit it will split
+     {
+       println("In Division() now");
+       //gameObjects.remove(this);
      }
      
      
@@ -37,8 +41,6 @@ class Asteroid extends GameObject
     //This fnc is used to move the asteroids
    void update()
    {
-      //forward.x = random(-1, 1);  //Try keep to small numbers or moves to quickly
-      //forward.y = random(-1, 2);
      
       pos.add(PVector.mult(PVector.mult(forward, speed), timeDelta));  //Causes the object to move 
       
@@ -59,8 +61,24 @@ class Asteroid extends GameObject
       {
         pos.y = height;
       }
+      
+      for(int j = 0 ; j < gameObjects.size() ; j ++)
+      {
+        GameObject go = gameObjects.get(j);
+        if (go instanceof Asteroid)
+        {
+          Asteroid t = (Asteroid) go;                        //Asteroid temp(t)
+          
+          if (dist(go.pos.x, go.pos.y, this.pos.x, this.pos.y) < t.radius)
+          {
+            division();
+          }
+          
+        }
+      
+      }//end for loop
      
-   }
+   }//end update()
    
    void render()
    {
