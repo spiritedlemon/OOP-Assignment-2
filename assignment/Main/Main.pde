@@ -44,6 +44,13 @@ void menu()  //Called from setup to display a menu on start-up
 }
 
 
+void onClick()
+{
+  
+  
+}
+
+
 void draw()
 {
   if(screen == 0)
