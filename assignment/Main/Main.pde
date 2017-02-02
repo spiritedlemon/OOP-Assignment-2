@@ -9,12 +9,25 @@ void setup()
   size(720, 640);  //Recommended ~720,640 -- smaller screen makes it harder to dodge asteroids
   
   //Pass the info into the userShip class to create their ship controls - This allows the creation of multiple players easily which makes a multiplayer mode easier
-  UserShip player1 = new UserShip(width / 2, height / 2, 0, 30, 'w', 's', 'a', 'd', ' '); 
+  //UserShip player1 = new UserShip(width / 2, height / 2, 0, 30, 'w', 's', 'a', 'd', ' '); 
+  //UserShip player2 = new UserShip(width / 2, height / 2, 0, 30, 'o', 'l', 'k', ';', '1'); 
   
   
-  gameObjects.add(player1);
+  if(screen == 1)
+  {
+    OnePlayer();
+  }
+  else if(screen == 2)
+  {
+    TwoPlayer();
+  }
   
 }
+
+
+//Pass the info into the userShip class to create their ship controls - This allows the creation of multiple players easily which makes a multiplayer mode easier
+  UserShip player1 = new UserShip(width / 2, height / 2, 0, 30, 'w', 's', 'a', 'd', ' '); 
+  UserShip player2 = new UserShip(width / 2, height / 2, 0, 30, 'o', 'l', 'k', ';', '1'); 
 
 //Variables
 float timeDelta = 1.0f / 60.0f;  //This variable tracks time passing - Used to kill bullets that have been alive too long
@@ -26,6 +39,7 @@ int screen = 0;                    //Used to navigate screens
 
 ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 boolean[] keys = new boolean[1000];  //Used to discern if a key is being held down
+
 
 
 void menu()  //Called from setup to display a menu on start-up
@@ -56,7 +70,6 @@ void mousePressed()
     else if((mouseX > width/6) && (mouseX < 5*width/6) && (mouseY > 4*height/10) && (mouseY < 6*height/10) )
     {
       screen = 2;
-      println("Coming Soon");
     }
     else if((mouseX > width/6) && (mouseX < 5*width/6) && (mouseY > 7*height/10) && (mouseY < 9*height/10))
     {
@@ -95,11 +108,51 @@ void draw()
         spawn();  //call function to spawn asteroids
       }
   }
+  else if(screen == 2)
+  {
+      background(0);
+      stroke(255);  //Assigns color to objects being created in game
+      
+      
+      for (int i = gameObjects.size() -1 ; i >= 0  ; i --)
+      {
+        GameObject go = gameObjects.get(i); 
+        go.update();
+        go.render();    
+      }
+      
+      if(Ccounter<Tcounter)    //If current number < Total number - Spawn asteroids until there is enough
+      {
+        spawn();  //call function to spawn asteroids
+      }
+  }
   else
   {
      screen = 0; 
   }
 }
+
+
+void OnePlayer()
+{
+  
+  //Pass the info into the userShip class to create their ship controls - This allows the creation of multiple players easily which makes a multiplayer mode easier
+  UserShip player1 = new UserShip(width / 2, height / 2, 0, 30, 'w', 's', 'a', 'd', ' '); 
+  
+  
+  gameObjects.add(player1);
+}
+
+
+void TwoPlayer()
+{
+  
+  
+  gameObjects.add(player1);
+  gameObjects.add(player2);
+  
+}
+
 
 void spawn()
 {
