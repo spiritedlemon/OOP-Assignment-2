@@ -9,25 +9,24 @@ void setup()
   size(720, 640);  //Recommended ~720,640 -- smaller screen makes it harder to dodge asteroids
   
   //Pass the info into the userShip class to create their ship controls - This allows the creation of multiple players easily which makes a multiplayer mode easier
-  //UserShip player1 = new UserShip(width / 2, height / 2, 0, 30, 'w', 's', 'a', 'd', ' '); 
-  //UserShip player2 = new UserShip(width / 2, height / 2, 0, 30, 'o', 'l', 'k', ';', '1'); 
+  UserShip player1 = new UserShip(width / 2, height / 2, 0, 30, 'w', 's', 'a', 'd', ' '); 
+  UserShip player2 = new UserShip(width / 2, height / 2, 0, 30, 'o', 'l', 'k', ';', 'p'); 
   
   
   if(screen == 1)
   {
-    OnePlayer();
+    println("One Player Mode");
+    gameObjects.add(player1);
   }
   else if(screen == 2)
   {
-    TwoPlayer();
+    println("Two Player Mode");
+    gameObjects.add(player1);
+    gameObjects.add(player2);
   }
   
 }
 
-
-//Pass the info into the userShip class to create their ship controls - This allows the creation of multiple players easily which makes a multiplayer mode easier
-  UserShip player1 = new UserShip(width / 2, height / 2, 0, 30, 'w', 's', 'a', 'd', ' '); 
-  UserShip player2 = new UserShip(width / 2, height / 2, 0, 30, 'o', 'l', 'k', ';', '1'); 
 
 //Variables
 float timeDelta = 1.0f / 60.0f;  //This variable tracks time passing - Used to kill bullets that have been alive too long
@@ -65,11 +64,13 @@ void mousePressed()
   {
     if( (mouseX > width/6) && (mouseX < 5*width/6) && (mouseY > height/10) && (mouseY < 3*height/10) )    //Refers to the first button of the menu
     {
-      screen = 1;
+      screen = 1;    //The value of screen is used in both setup() and draw() to find which game mode is being used
+      setup();      //Call setup to create the necessary player ships 
     }
     else if((mouseX > width/6) && (mouseX < 5*width/6) && (mouseY > 4*height/10) && (mouseY < 6*height/10) )
     {
       screen = 2;
+      setup();
     }
     else if((mouseX > width/6) && (mouseX < 5*width/6) && (mouseY > 7*height/10) && (mouseY < 9*height/10))
     {
@@ -133,27 +134,6 @@ void draw()
 }
 
 
-void OnePlayer()
-{
-  
-  //Pass the info into the userShip class to create their ship controls - This allows the creation of multiple players easily which makes a multiplayer mode easier
-  UserShip player1 = new UserShip(width / 2, height / 2, 0, 30, 'w', 's', 'a', 'd', ' '); 
-  
-  
-  gameObjects.add(player1);
-}
-
-
-void TwoPlayer()
-{
-  
-  
-  gameObjects.add(player1);
-  gameObjects.add(player2);
-  
-}
-
-
 void spawn()
 {
   float temp = 0; //Used to save random variable below
@@ -178,9 +158,6 @@ void spawn()
    
   Ccounter++;
   
-  //error checking
-  println(Ccounter);
-  //println(temp);
 }
 
 
