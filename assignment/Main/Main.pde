@@ -44,9 +44,27 @@ void menu()  //Called from setup to display a menu on start-up
 }
 
 
-void onClick()
+//Used to navigate the menu with the mouse
+void mousePressed()
 {
-  
+  if(screen == 0)
+  {
+    if( (mouseX > width/6) && (mouseX < 5*width/6) && (mouseY > height/10) && (mouseY < 3*height/10) )    //Refers to the first button of the menu
+    {
+      screen = 1;
+    }
+    else if((mouseX > width/6) && (mouseX < 5*width/6) && (mouseY > 4*height/10) && (mouseY < 6*height/10) )
+    {
+      screen = 2;
+      println("Coming Soon");
+    }
+    else if((mouseX > width/6) && (mouseX < 5*width/6) && (mouseY > 7*height/10) && (mouseY < 9*height/10))
+    {
+      screen = 3;
+      println("Coming Soon");
+    }
+    
+  }
   
 }
 
@@ -79,7 +97,7 @@ void draw()
   }
   else
   {
-     println("WTF"); 
+     screen = 0; 
   }
 }
 
