@@ -34,7 +34,7 @@ int initialRadius = 50;          //This is used for the asteroids size  -  This 
 int Tcounter = 4;                //This will increment ~ every time an asteroid is destroyed (TotalCounter)
 int Ccounter = 0;                //This will keep track of the number of asteroids currently spawned (CurrentCounter)
 
-int screen = 0;                    //Used to navigate screens 
+int screen = 1;                    //Used to navigate screens - set to one so its easier to test new features
 
 ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 boolean[] keys = new boolean[1000];  //Used to discern if a key is being held down

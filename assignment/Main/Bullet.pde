@@ -72,6 +72,7 @@ class Bullet extends GameObject
         if (dist(go.pos.x, go.pos.y, this.pos.x, this.pos.y) < t.radius)
         {
           gameObjects.remove(this);
+          t.alive = 0;
         }
       }
     }

@@ -8,7 +8,7 @@ class Asteroid extends GameObject
    PVector velocity;
    float theta;  //Used to decide direction of asteroid
    float speed = 90;
-   
+   int alive = 1;      //1 = alive, 0 = dead -- When bullet hits it will set this to 0
     
    public Asteroid(float x, float y, float radius)
    {
@@ -30,7 +30,7 @@ class Asteroid extends GameObject
      else      //If the asteroid is yet to split it will use this function so that on-hit it will split
      {
        println("In Division() now");
-       //gameObjects.remove(this);
+       gameObjects.remove(this);
      }
      
      
@@ -61,21 +61,12 @@ class Asteroid extends GameObject
         pos.y = height;
       }
       
-      /*
-      for(int i = 0; i < gameObjects.size(); i ++)
-    {
-      GameObject ga = gameObjects.get(i);
-      if (ga instanceof Bullet)
+      if(alive == 0)
       {
-        Bullet t = (Bullet) ga;  
-        //if (dist(t.pos.x, t.pos.y, this.pos.x, this.pos.y) < 50)
-        {
-         // division();
-        }
+        division();
+        alive = 1;
       }
-    }
-     
-     */
+      
      
    }//end update()
    
