@@ -39,13 +39,17 @@ int screen = 0;                    //Used to navigate screens
 ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 boolean[] keys = new boolean[1000];  //Used to discern if a key is being held down
 
-
+//Color of menu border is random every time - (at least 20 so it wont be invisible) - Randomized when compiled to avoid 60 changes per sec
+  float cx = random(20,255);
+  float cy = random(20,255);
+  float cz = random(20,255);
 
 void menu()  //Called from setup to display a menu on start-up
 {
   background(0);
-  stroke(0, 255, 255);
   fill(0);
+  
+  stroke(cx, cy, cz);  //Variables are global and random at time of compile
   
   //Rectangles created to be used to navigate to one player, two player and either settings or high-score
   rect(width/6, height/10, 4*width/6, 2*height/10);  //First rectangle on the screen 
@@ -54,6 +58,19 @@ void menu()  //Called from setup to display a menu on start-up
   
   rect(width/6, 7*height/10, 4*width/6, 2*height/10);
   
+  
+  
+  //Now fill in the boxes made above 
+  PFont f;
+  float fontSize = ( (height * width)/10000 );   //Font size scales with chosen display dimensions
+  f = createFont("Arial", 18, true); // true -> anti-aliasing on
+  textFont(f, fontSize);  //sets font size of 'PFont' f
+  fill(255);
+  
+  
+  text("One Player", width * 0.35f, height*0.225f);
+  text("Two Player", width * 0.35f, height*0.525f);
+  text("High Score", width * 0.35f, height*0.825f);
 }
 
 
