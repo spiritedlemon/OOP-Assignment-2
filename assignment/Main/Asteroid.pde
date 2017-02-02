@@ -26,7 +26,6 @@ class Asteroid extends GameObject
      if(radius < 50)  //If the asteroid has already split it will be below 50
      {
       // gameObjects.remove(this);
-       //Ccounter--;        //Counter for Current number of asteroids '-1'
      }
      else      //If the asteroid is yet to split it will use this function so that on-hit it will split
      {
@@ -62,21 +61,21 @@ class Asteroid extends GameObject
         pos.y = height;
       }
       
-      for(int j = 0 ; j < gameObjects.size() ; j ++)
+      /*
+      for(int i = 0; i < gameObjects.size(); i ++)
+    {
+      GameObject ga = gameObjects.get(i);
+      if (ga instanceof Bullet)
       {
-        GameObject go = gameObjects.get(j);
-        if (go instanceof Asteroid)
+        Bullet t = (Bullet) ga;  
+        //if (dist(t.pos.x, t.pos.y, this.pos.x, this.pos.y) < 50)
         {
-          Asteroid t = (Asteroid) go;                        //Asteroid temp(t)
-          
-          if (dist(go.pos.x, go.pos.y, this.pos.x, this.pos.y) < t.radius)
-          {
-            division();
-          }
-          
+         // division();
         }
-      
-      }//end for loop
+      }
+    }
+     
+     */
      
    }//end update()
    

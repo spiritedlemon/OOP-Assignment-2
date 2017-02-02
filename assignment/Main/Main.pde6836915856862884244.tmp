@@ -22,7 +22,7 @@ int initialRadius = 50;          //This is used for the asteroids size  -  This 
 int Tcounter = 4;                //This will increment ~ every time an asteroid is destroyed (TotalCounter)
 int Ccounter = 0;                //This will keep track of the number of asteroids currently spawned (CurrentCounter)
 
-int screen = 0;                    //Used to navigate screens 
+menu = 0;
 
 ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 boolean[] keys = new boolean[1000];  //Used to discern if a key is being held down
@@ -31,48 +31,26 @@ boolean[] keys = new boolean[1000];  //Used to discern if a key is being held do
 void menu()  //Called from setup to display a menu on start-up
 {
   background(0);
-  stroke(0, 255, 255);
-  fill(0);
-  
-  //Rectangles created to be used to navigate to one player, two player and either settings or high-score
-  rect(width/6, height/10, 4*width/6, 2*height/10);  //First rectangle on the screen 
-  
-  rect(width/6, 4*height/10, 4*width/6, 2*height/10);
-  
-  rect(width/6, 7*height/10, 4*width/6, 2*height/10);
   
 }
 
 
 void draw()
 {
-  if(screen == 0)
+  background(0);
+  stroke(255);  //Assigns color to objects being created in game
+  
+  
+  for (int i = gameObjects.size() -1 ; i >= 0  ; i --)
   {
-    
-    menu();    //call the menu function
-    
+    GameObject go = gameObjects.get(i); 
+    go.update();
+    go.render();    
   }
-  else if(screen == 1)
+  
+  if(Ccounter<Tcounter)    //If current number < Total number - Spawn asteroids until there is enough
   {
-      background(0);
-      stroke(255);  //Assigns color to objects being created in game
-      
-      
-      for (int i = gameObjects.size() -1 ; i >= 0  ; i --)
-      {
-        GameObject go = gameObjects.get(i); 
-        go.update();
-        go.render();    
-      }
-      
-      if(Ccounter<Tcounter)    //If current number < Total number - Spawn asteroids until there is enough
-      {
-        spawn();  //call function to spawn asteroids
-      }
-  }
-  else
-  {
-     println("WTF"); 
+    spawn();  //call function to spawn asteroids
   }
 }
 
