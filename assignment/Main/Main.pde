@@ -8,6 +8,10 @@ void setup()
   
   size(720, 640);  //Recommended ~720,640 -- smaller screen makes it harder to dodge asteroids
   
+  img = loadImage("space.jpg");
+  img.resize(width, height); //Resizes the image to be the size of the window
+  
+  
   //Pass the info into the userShip class to create their ship controls - This allows the creation of multiple players easily which makes a multiplayer mode easier
   UserShip player1 = new UserShip(width / 2, height / 2, 0, 30, 'w', 's', 'a', 'd', ' '); 
   UserShip player2 = new UserShip(width / 2, height / 2, 0, 30, 'o', 'l', 'k', ';', 'p'); 
@@ -29,10 +33,13 @@ void setup()
 
 
 //Variables
+PImage img;
+
 float timeDelta = 1.0f / 60.0f;  //This variable tracks time passing - Used to kill bullets that have been alive too long
 float initialRadius;          //This is used for the asteroids size  -  This is actually their diameter but w/e
 int Tcounter = 4;                //This will increment ~ every time an asteroid is destroyed (TotalCounter)
 int Ccounter = 0;                //This will keep track of the number of asteroids currently spawned (CurrentCounter)
+int powerUp = 0;                 //Default = 0 -- at 1 shoot quicker -- at 2 asteroids slow down -- at 3 ???? - Random reward - Spawn at 0, 10k, 20k...
 
 int screen = 0;                  //Used to navigate screens - set to one so its easier to test new features  -  default 0
 boolean clickChange = false;     //When player lives hits 0 this is set to true and onClick the player will be returned to the menu  -  default = false
@@ -119,6 +126,9 @@ void mousePressed()
 
 void draw()
 {
+  image(img, 0, 0);
+  
+  
   if(screen == 0)
   {
     
@@ -127,7 +137,7 @@ void draw()
   }
   else if(screen == 1)
   {
-      background(0);
+      //background(0);
       stroke(255);  //Assigns color to objects being created in game
       
       
