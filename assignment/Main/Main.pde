@@ -30,11 +30,11 @@ void setup()
 
 //Variables
 float timeDelta = 1.0f / 60.0f;  //This variable tracks time passing - Used to kill bullets that have been alive too long
-int initialRadius = 50;          //This is used for the asteroids size  -  This is actually their diameter but w/e
+float initialRadius;          //This is used for the asteroids size  -  This is actually their diameter but w/e
 int Tcounter = 4;                //This will increment ~ every time an asteroid is destroyed (TotalCounter)
 int Ccounter = 0;                //This will keep track of the number of asteroids currently spawned (CurrentCounter)
 
-int screen = 1;                    //Used to navigate screens - set to one so its easier to test new features
+int screen = 0;                    //Used to navigate screens - set to one so its easier to test new features
 
 ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 boolean[] keys = new boolean[1000];  //Used to discern if a key is being held down
@@ -169,11 +169,11 @@ void spawn()
     aposx = (width - 50);
   }
   
-  
+  initialRadius = random(50, 100);
   
   gameObjects.add(new Asteroid(aposx, aposy, initialRadius));
    
-  Ccounter++;
+  Ccounter++;  //Counter for current num of asteroids increments
   
 }
 
