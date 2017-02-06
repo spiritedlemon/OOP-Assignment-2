@@ -29,7 +29,6 @@ class Asteroid extends GameObject
      }
      else      //If the asteroid is yet to split it will use this function so that on-hit, it will split
      {
-       println("In Division() now");
        gameObjects.remove(this);
        
        gameObjects.add(new Asteroid(this.pos.x, this.pos.x, radius*.67f));
