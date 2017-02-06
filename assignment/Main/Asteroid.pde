@@ -23,13 +23,27 @@ class Asteroid extends GameObject
    
    void division()  //(Split & break arent allowed) - This function deals with how the asteroids split/divide upon impact
    {
-     if(radius < 50)  //If radius is low enough the asteroid will be destroyed
+     if(radius < 50)  //Small asteroid - Breaks completely
      {
        gameObjects.remove(this);
+       
+       score = score + 100;
      }
-     else      //If the asteroid is yet to split it will use this function so that on-hit, it will split
+     else if(radius > 50 && radius < 76)  //Medium sized asteroid - Splits in two
      {
        gameObjects.remove(this);
+       
+       score = score + 50;
+       
+       gameObjects.add(new Asteroid(this.pos.x, this.pos.x, radius*.67f));
+       gameObjects.add(new Asteroid(this.pos.x, this.pos.x, radius*.67f));
+       
+     }
+     else      //Large Asteroid - splits in two
+     {
+       gameObjects.remove(this);
+       
+       score = score + 20;
        
        gameObjects.add(new Asteroid(this.pos.x, this.pos.x, radius*.67f));
        gameObjects.add(new Asteroid(this.pos.x, this.pos.x, radius*.67f));

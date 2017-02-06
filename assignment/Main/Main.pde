@@ -34,7 +34,9 @@ float initialRadius;          //This is used for the asteroids size  -  This is 
 int Tcounter = 4;                //This will increment ~ every time an asteroid is destroyed (TotalCounter)
 int Ccounter = 0;                //This will keep track of the number of asteroids currently spawned (CurrentCounter)
 
-int screen = 0;                    //Used to navigate screens - set to one so its easier to test new features
+int screen = 0;                  //Used to navigate screens - set to one so its easier to test new features
+
+int score = 0;                   //Global variable to track player's score
 
 ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 boolean[] keys = new boolean[1000];  //Used to discern if a key is being held down
@@ -43,6 +45,7 @@ boolean[] keys = new boolean[1000];  //Used to discern if a key is being held do
   float cx = random(20,255);
   float cy = random(20,255);
   float cz = random(20,255);
+
 
 void menu()  //Called from setup to display a menu on start-up
 {
@@ -125,6 +128,23 @@ void draw()
       {
         spawn();  //call function to spawn asteroids
       }
+      
+      
+      //Create the font color and size
+      PFont f;
+      float fontSize = ( (height * width)/15000 );   //Font size scales with chosen display dimensions
+      f = createFont("Arial", 18, true); // true -> anti-aliasing on
+      textFont(f, fontSize);  //sets font size of 'PFont' f
+      fill(255);
+      
+      //Print the score to the bottom corner of the screen
+      text("Score: ", width *0.8f, height *0.9f);
+      text(score, width *0.8f, height *0.95f);
+      
+      //Print the Lives counter to the bottom of the screen
+      
+      
+      
   }
   else if(screen == 2)
   {
