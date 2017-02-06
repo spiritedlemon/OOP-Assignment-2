@@ -38,6 +38,7 @@ int screen = 0;                  //Used to navigate screens - set to one so its 
 
 int score = 0;                   //Global variable to track player's score
 int reset = 1;                   //Used to track if the ship is hit by an Asteroid - used in draw() and the UserShip class
+int lives = 3;                   //The player's life counter
 
 ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 boolean[] keys = new boolean[1000];  //Used to discern if a key is being held down
@@ -143,18 +144,31 @@ void draw()
       text(score, width *0.8f, height *0.95f);
       
       //Print the Lives counter to the bottom of the screen
+      text("Lives: ", width *0.05f, height *0.9f);
+      text(lives, width *0.05f, height *0.95f);
       
       
       
       
-      
-      //
+      //Value is set to 0 in the UserShip class upon collision with an asteroid
       if(reset == 0)    //I.e. if you fly into an asteroid
       {
         setup();
         reset = 1;
       }
       
+      
+      if(lives == 0)
+      {
+        fontSize = ( (height * width)/10000 );   //Font size scales with chosen display dimensions
+        textFont(f, fontSize);  //sets font size of 'PFont' f
+        textAlign(CENTER);
+        text("GAME OVER", width *0.5f, height *0.5f);
+        
+        
+        //screen = 0;
+        
+      }
       
   }
   else if(screen == 2)

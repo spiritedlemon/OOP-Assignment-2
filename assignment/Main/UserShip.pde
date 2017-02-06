@@ -138,6 +138,7 @@ class UserShip extends GameObject
           {
             gameObjects.remove(this);
             reset = 0;              //sets this to 0, destroying the player's ship and calling the setup() fnc in main
+            lives--;
           }
         }
       }
