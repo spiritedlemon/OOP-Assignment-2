@@ -34,11 +34,12 @@ float initialRadius;          //This is used for the asteroids size  -  This is 
 int Tcounter = 4;                //This will increment ~ every time an asteroid is destroyed (TotalCounter)
 int Ccounter = 0;                //This will keep track of the number of asteroids currently spawned (CurrentCounter)
 
-int screen = 0;                  //Used to navigate screens - set to one so its easier to test new features
+int screen = 0;                  //Used to navigate screens - set to one so its easier to test new features  -  default 0
+boolean clickChange = false;     //When player lives hits 0 this is set to true and onClick the player will be returned to the menu  -  default = false
 
 int score = 0;                   //Global variable to track player's score
-int reset = 1;                   //Used to track if the ship is hit by an Asteroid - used in draw() and the UserShip class
-int lives = 3;                   //The player's life counter
+int reset = 1;                   //Used to track if the ship is hit by an Asteroid - used in draw() and the UserShip class  -  default = 1
+int lives = 3;                   //The player's life counter  -  default = 3
 
 ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 boolean[] keys = new boolean[1000];  //Used to discern if a key is being held down
@@ -100,7 +101,18 @@ void mousePressed()
       println("Coming Soon");
     }
     
-  }
+  }//end of screen == 0 if statement
+  
+  if(screen == 1)
+  {
+    if(clickChange == true)
+    {
+      screen = 0;
+      clickChange = false;
+    }
+    
+    
+  }//end of screen == 1 if statement
   
 }
 
@@ -162,11 +174,11 @@ void draw()
       {
         fontSize = ( (height * width)/10000 );   //Font size scales with chosen display dimensions
         textFont(f, fontSize);  //sets font size of 'PFont' f
-        textAlign(CENTER);
-        text("GAME OVER", width *0.5f, height *0.5f);
+        text("GAME OVER", width *0.3f, height *0.5f);
         
+        text("Click To Return To Menu", width *0.15f, height *0.6f);
+        clickChange = true;
         
-        //screen = 0;
         
       }
       
