@@ -37,6 +37,7 @@ int Ccounter = 0;                //This will keep track of the number of asteroi
 int screen = 0;                  //Used to navigate screens - set to one so its easier to test new features
 
 int score = 0;                   //Global variable to track player's score
+int reset = 1;                   //Used to track if the ship is hit by an Asteroid - used in draw() and the UserShip class
 
 ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 boolean[] keys = new boolean[1000];  //Used to discern if a key is being held down
@@ -143,6 +144,16 @@ void draw()
       
       //Print the Lives counter to the bottom of the screen
       
+      
+      
+      
+      
+      //
+      if(reset == 0)    //I.e. if you fly into an asteroid
+      {
+        setup();
+        reset = 1;
+      }
       
       
   }

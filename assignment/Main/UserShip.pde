@@ -2,7 +2,6 @@
 
 class UserShip extends GameObject
 {
-  
   //Variables 
   PVector vel;
   PVector accel;
@@ -12,7 +11,6 @@ class UserShip extends GameObject
   float mass = 1;
   PShape shape;
   char up, down, left, right, shoot;
-  int lives;
   
   PVector force;
   float power = 100;
@@ -39,7 +37,6 @@ class UserShip extends GameObject
     this.up = up;
     this.down = down;
     this.shoot = shoot;
-    this.lives = 3;
     create();
     
   }
@@ -127,6 +124,24 @@ class UserShip extends GameObject
       gameObjects.add(b);
       elapsed = 0;          //Starts timer
     }
+    
+    
+    //Check for collision with the user - Same as the for loop used in Bullet
+     
+     for(int i = 0; i < gameObjects.size(); i ++)
+      {
+        GameObject go = gameObjects.get(i);
+        if (go instanceof Asteroid)
+        {
+          Asteroid t = (Asteroid) go;  //asteroid temp(t)
+          if (dist(go.pos.x, go.pos.y, this.pos.x, this.pos.y) < t.radius)
+          {
+            gameObjects.remove(this);
+            reset = 0;              //sets this to 0, destroying the player's ship and calling the setup() fnc in main
+          }
+        }
+      }
+    
     
     
     

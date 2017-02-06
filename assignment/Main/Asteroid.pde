@@ -84,6 +84,9 @@ class Asteroid extends GameObject
       }
       
      
+     
+     
+     
    }//end update()
    
    void render()
@@ -94,8 +97,8 @@ class Asteroid extends GameObject
      ellipse(pos.x, pos.y, radius, radius);
      
      popMatrix();
-   }
+   }//end of render()
    
     
     
-} 
+} //End of asteroid
