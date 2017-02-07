@@ -8,8 +8,13 @@ void setup()
   
   size(720, 640);  //Recommended ~720,640 -- smaller screen makes it harder to dodge asteroids
   
-  img = loadImage("space.jpg");
-  img.resize(width, height); //Resizes the image to be the size of the window
+  //Load the background images
+  //img0 = loadImage("space0.jpg");
+  //img0.resize(width, height); //Resizes the image to be the size of the window
+  //img1 = loadImage("space1.jpg");
+  //img1.resize(width, height); //Resizes the image to be the size of the window
+  //img2 = loadImage("space2.jpg");
+  //img2.resize(width, height); //Resizes the image to be the size of the window
   
   
   //Pass the info into the userShip class to create their ship controls - This allows the creation of multiple players easily which makes a multiplayer mode easier
@@ -33,7 +38,7 @@ void setup()
 
 
 //Variables
-PImage img;
+PImage img0, img1, img2;  //Zero is the home screen - One is one player- Two is two player
 
 float timeDelta = 1.0f / 60.0f;  //This variable tracks time passing - Used to kill bullets that have been alive too long
 float initialRadius;          //This is used for the asteroids size  -  This is actually their diameter but w/e
@@ -60,7 +65,9 @@ boolean[] keys = new boolean[1000];  //Used to discern if a key is being held do
 void menu()  //Called from setup to display a menu on start-up
 {
   background(0);
+  //image(img0, 0, 0);
   fill(0);
+  lives = 3;  //Life counter reset in menu
   
   stroke(cx, cy, cz);  //Variables are global and random at time of compile
   
@@ -126,7 +133,6 @@ void mousePressed()
 
 void draw()
 {
-  image(img, 0, 0);
   
   
   if(screen == 0)
@@ -137,7 +143,61 @@ void draw()
   }
   else if(screen == 1)
   {
-      //background(0);
+      
+    
+    if(lives > 0)
+    {
+      onePlayer();    //When life counter == 0 the screen will freeze so the user can read the message
+    }
+    else if(lives == 0)
+      {
+        PFont f;
+        float fontSize = ( (height * width)/15000 );   //Font size scales with chosen display dimensions
+        f = createFont("Arial", 18, true); // true -> anti-aliasing on
+        textFont(f, fontSize);  //sets font size of 'PFont' f
+      
+        fontSize = ( (height * width)/10000 );   //Font size scales with chosen display dimensions
+        textFont(f, fontSize);  //sets font size of 'PFont' f
+        text("GAME OVER", width *0.3f, height *0.5f);
+        
+        text("Click To Return To Menu", width *0.15f, height *0.6f);
+        clickChange = true;  //When 'True', screen will be set to 0 on click
+        
+        
+        
+      }
+      
+  }
+  else if(screen == 2)
+  {
+      background(0);
+      //image(img2, 0, 0);
+      stroke(255);  //Assigns color to objects being created in game
+      
+      
+      for (int i = gameObjects.size() -1 ; i >= 0  ; i --)
+      {
+        GameObject go = gameObjects.get(i); 
+        go.update();
+        go.render();    
+      }
+      
+      if(Ccounter<Tcounter)    //If current number < Total number - Spawn asteroids until there is enough
+      {
+        spawn();  //call function to spawn asteroids
+      }
+  }
+  else
+  {
+     screen = 0; 
+  }
+}
+
+void onePlayer()
+{
+  
+      background(0);
+      //image(img1, 0, 0);
       stroke(255);  //Assigns color to objects being created in game
       
       
@@ -180,43 +240,8 @@ void draw()
       }
       
       
-      if(lives == 0)
-      {
-        fontSize = ( (height * width)/10000 );   //Font size scales with chosen display dimensions
-        textFont(f, fontSize);  //sets font size of 'PFont' f
-        text("GAME OVER", width *0.3f, height *0.5f);
-        
-        text("Click To Return To Menu", width *0.15f, height *0.6f);
-        clickChange = true;
-        
-        
-      }
-      
-  }
-  else if(screen == 2)
-  {
-      background(0);
-      stroke(255);  //Assigns color to objects being created in game
-      
-      
-      for (int i = gameObjects.size() -1 ; i >= 0  ; i --)
-      {
-        GameObject go = gameObjects.get(i); 
-        go.update();
-        go.render();    
-      }
-      
-      if(Ccounter<Tcounter)    //If current number < Total number - Spawn asteroids until there is enough
-      {
-        spawn();  //call function to spawn asteroids
-      }
-  }
-  else
-  {
-     screen = 0; 
-  }
+  
 }
-
 
 void spawn()
 {

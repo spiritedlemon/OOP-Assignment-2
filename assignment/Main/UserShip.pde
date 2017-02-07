@@ -63,7 +63,6 @@ class UserShip extends GameObject
     
     pushMatrix(); // Stores current transform
     translate(pos.x, pos.y);
-    //text("Lives: " + health, -20, -50);
     
     rotate(theta);    
 
