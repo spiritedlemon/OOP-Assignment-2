@@ -9,9 +9,10 @@ void setup()
   size(720, 640);  //Recommended ~720,640 -- smaller screen makes it harder to dodge asteroids
   
   //Load the background images
+  
+  img = loadImage("space1.jpg");
+  img.resize(width, height); //Resizes the image to be the size of the window
   /*
-  img0 = loadImage("space0.jpg");
-  img0.resize(width, height); //Resizes the image to be the size of the window
   img1 = loadImage("space1.jpg");
   img1.resize(width, height); //Resizes the image to be the size of the window
   img2 = loadImage("space2.jpg");
@@ -30,7 +31,7 @@ void setup()
   }
   else if(screen == 2)
   {
-    println("Two Player Mode");
+    println("Two Player Survival");
     gameObjects.add(player1);
     gameObjects.add(player2);
   }
@@ -39,7 +40,7 @@ void setup()
 
 
 //Variables
-PImage img0, img1, img2;  //Zero is the home screen - One is one player- Two is two player
+PImage img;  
 
 float timeS = 1.0f / 60.0f;  //This variable tracks time passing - Used to kill bullets that have been alive too long
 float initialRadius;          //This is used for the asteroids size  -  This is actually their diameter but w/e
@@ -63,14 +64,15 @@ int timer1, timer2 = 0;   //Timers to track each life's time - Only matters the 
 int timer = 0; //This will be the actual timer used to protect the playeing spawn killed
 
 //Color of menu border is random every time - (at least 20 so it wont be invisible) - Randomized when compiled to avoid 60 changes per sec
-  float cx = random(20,255);
-  float cy = random(20,255);
-  float cz = random(20,255);
+float cx = random(20,255);
+float cy = random(20,255);
+float cz = random(20,255);
 
 
 void menu()  //Called from setup to display a menu on start-up
 {
   background(0);
+  image(img, 0, 0);
   fill(0);
   
   stroke(cx, cy, cz);  //Variables are global and random at time of compile
@@ -93,7 +95,7 @@ void menu()  //Called from setup to display a menu on start-up
   
   
   text("One Player", width * 0.35f, height*0.225f);
-  text("Two Player", width * 0.35f, height*0.525f);
+  text("Two Player ", width * 0.35f, height*0.525f);
   text("High Score", width * 0.35f, height*0.825f);
 }
 
@@ -105,11 +107,13 @@ void mousePressed()
   {
     if( (mouseX > width/6) && (mouseX < 5*width/6) && (mouseY > height/10) && (mouseY < 3*height/10) )    //Refers to the first button of the menu
     {
+      lives = 3; 
       screen = 1;    //The value of screen is used in both setup() and draw() to find which game mode is being used
       setup();      //Call setup to create the necessary player ships 
     }
     else if((mouseX > width/6) && (mouseX < 5*width/6) && (mouseY > 4*height/10) && (mouseY < 6*height/10) )
     {
+      lives = 6;
       screen = 2;
       setup();
     }
@@ -140,9 +144,7 @@ void draw()
   
   if(screen == 0)
   {
-    
     menu();    //call the menu function
-    lives = 3;  //Life counter reset
     
   }
   else if(screen == 1)
@@ -154,14 +156,22 @@ void draw()
       onePlayer();    //When life counter == 0 the screen will freeze so the user can read the message
     }
     else if(lives == 0)
-      {
-        endGame();
-      }
+    {
+      endGame();
+    }
       
   }
   else if(screen == 2)
   {
+    
+    if(lives > 0)
+    {
       twoPlayer();
+    }
+    else
+    {
+      endGame2();
+    }
   }
   else
   {
@@ -182,6 +192,29 @@ void endGame()
         
         text("Click To Return To Menu", width *0.15f, height *0.6f);
         clickChange = true;  //When 'True', screen will be set to 0 on click 
+}
+
+
+void endGame2()
+{
+        PFont f;
+        float fontSize = ( (height * width)/15000 );   //Font size scales with chosen display dimensions
+        f = createFont("Arial", 18, true); // true -> anti-aliasing on
+        textFont(f, fontSize);  //sets font size of 'PFont' f
+      
+        fontSize = ( (height * width)/10000 );   //Font size scales with chosen display dimensions
+        textFont(f, fontSize);  //sets font size of 'PFont' f
+        text("GAME OVER", width *0.3f, height *0.2f);
+        
+        
+        text("Your Time is: ", width*0.3f, height*0.5f);
+        text(Ttimer, width*0.45f, height*0.6f);
+        
+        
+        text("Click To Return To Menu", width *0.15f, height *0.85f);
+        clickChange = true;  //When 'True', screen will be set to 0 on click
+        
+        
 }
 
 void onePlayer()
@@ -245,7 +278,7 @@ void onePlayer()
       
 }//End of onePlayer()
 
-void twoPlayer()
+void twoPlayer()    //Team survival
 {
       background(0);
       stroke(255);  //Assigns color to objects being created in game
@@ -262,6 +295,32 @@ void twoPlayer()
       {
         spawn();  //call function to spawn asteroids
       }
+      
+      
+      //Create the font color and size
+      PFont f;
+      float fontSize = ( (height * width)/15000 );   //Font size scales with chosen display dimensions
+      f = createFont("Arial", 18, true); // true -> anti-aliasing on
+      textFont(f, fontSize);  //sets font size of 'PFont' f
+      fill(255);
+      
+      //Print the score to the bottom corner of the screen
+      text("Time: ", width *0.8f, height *0.9f);
+      text(Ttimer, width *0.8f, height *0.95f);
+      
+      //Print the Lives counter to the bottom of the screen
+      text("Lives: ", width *0.05f, height *0.9f);
+      text(lives, width *0.05f, height *0.95f);
+      
+      
+      
+      //Value is set to 0 in the UserShip class upon collision with an asteroid
+      if(reset == 0)    //I.e. if you fly into an asteroid
+      {
+        setup();
+        reset = 1;
+      }
+      
 }
 
 void spawn()
