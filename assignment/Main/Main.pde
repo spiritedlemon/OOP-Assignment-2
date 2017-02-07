@@ -12,12 +12,10 @@ void setup()
   
   img = loadImage("space1.jpg");
   img.resize(width, height); //Resizes the image to be the size of the window
-  /*
-  img1 = loadImage("space1.jpg");
-  img1.resize(width, height); //Resizes the image to be the size of the window
+  
   img2 = loadImage("space2.jpg");
   img2.resize(width, height); //Resizes the image to be the size of the window
-  */
+  
   
   //Pass the info into the userShip class to create their ship controls - This allows the creation of multiple players easily which makes a multiplayer mode easier
   UserShip player1 = new UserShip(width / 2, height / 2, 0, 30, 'w', 's', 'a', 'd', ' '); 
@@ -38,7 +36,7 @@ void setup()
 
 
 //Variables
-PImage img;  
+PImage img, img2;  
 
 float timeS = 1.0f / 60.0f;  //This variable tracks time passing - Used to kill bullets that have been alive too long
 float initialRadius;          //This is used for the asteroids size  -  This is actually their diameter but w/e
@@ -328,13 +326,17 @@ void twoPlayer()    //Team survival
 }//End of Two Player
 
 
+//Variables used in the sorting of the scoreboard
 String records[];
 int rec1, rec2, rec3;  //Top three highest scores in file
 int current;
+int tempSwap;  //Used to swap the ints around
 
 void highScores()
 {
-  records = loadStrings("highScores.txt");
+  background(0);
+  image(img2, 0, 0);
+  records = loadStrings("highscores.txt");
   
   //Find the three highest scores
   
@@ -343,16 +345,84 @@ void highScores()
   rec2 = int(records[1]);
   rec3 = int(records[2]);
   
-  //Then compare to each other
+  //Then compare to each other and order them
+  if(rec3 > rec1 && rec3 > rec2)  //If rec3 is biggest
+  {
+    tempSwap = rec3;
+    rec3 = rec1;
+    rec1 = tempSwap;
+    if(rec3 > rec2)  //Sort the other parts of the array
+    {
+      tempSwap = rec2;
+      rec2 = rec3;
+      rec3 = tempSwap;
+    }
+  }
+  
+  else if(rec3 > rec1 && rec3 < rec2)  //If rec2 is biggest, rec1 smallest
+  {
+    tempSwap = rec1;
+    rec1 = rec2;
+    rec2 = rec3;
+    rec3 = tempSwap;
+  }
+  else if(rec3 > rec1 && rec3 < rec2) //If rec2 is biggest, rec3 smallest
+  {
+    tempSwap = rec1;
+    rec1 = rec2;
+    rec2 = tempSwap;
+  }
+  
+  else if(rec1 > rec2 && rec1 > rec2)  //If rec1 is biggest
+  {
+    if(rec3 > rec2)
+    {
+      tempSwap = rec2;
+      rec2 = rec3;
+      rec3 = tempSwap;
+    }
+  }
   
   
+  //Now compare the rest of the array to the top three  --  Just gonna re-use tempSwap to save memory
+  for(int i=3; i<(records.length); i++)  //Starts at 3!! cause 0, 1, 2 are already sorted 
+  {
+    tempSwap = int(records[i]);
+    
+    if(tempSwap > rec3)  //if 3rd biggest yet
+    {
+      
+      if(tempSwap > rec2)  //If 2nd biggest 
+      {
+        
+        if(tempSwap > rec1)  //If biggest yet
+        {
+          rec3 = rec2;
+          rec2 = rec1;
+          rec1 = tempSwap;
+        }//end if3
+        else
+        {
+          rec3 = rec2;
+          rec2 = tempSwap;
+        }
+        
+      }//end if2
+      else
+      {
+         rec3 = tempSwap; 
+      }
+      
+    }//End if1
+    
+  }//End of for loop
   
   //Create the font color and size
   PFont f;
-  float fontSize = ( (height * width)/15000 );   //Font size scales with chosen display dimensions
+  float fontSize = ( (height * width)/10000 );   //Font size scales with chosen display dimensions
   f = createFont("Arial", 18, true); // true -> anti-aliasing on
   textFont(f, fontSize);  //sets font size of 'PFont' f
-  fill(255);
+  fill(255,255,0);
   
   text(rec1, width*0.45f, height*0.25f);
   text(rec2, width*0.45f, height*0.5f);
