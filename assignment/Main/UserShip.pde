@@ -80,7 +80,7 @@ class UserShip extends GameObject
     
     
     Ttimer = int(millis()/1000);  //creates a timer which tracks seconds passing
-    timer = Ttimer - (timer1+timer2); //Total minus each round's time  
+    timer = Ttimer - (timer1+timer2);
     
     
     //Controls to move the ship
@@ -142,33 +142,33 @@ class UserShip extends GameObject
           {
             if(timer > 3)
             {
-              
               gameObjects.remove(this);
               reset = 0;              //sets this to 0, destroying the player's ship and calling the setup() fnc in main
               lives--;
               
+              
+              //reset the timer to protect the player for 3 seconds
               if(lives == 2)
               {
-                timer1 = Ttimer;  //reset the timer to protect the player for 3 seconds
+                timer1 = Ttimer;
               }
               else if(lives == 1)
               {
                 timer2 = Ttimer - timer1;
               }
-            }//End of timer if loop
+              
+             }//end of if loop to check timer
           }
         }
       }//End of for loop
     
     
-    
-    
-    accel = PVector.div(force, mass);         //f = ma so a = f/m
-    vel.add(PVector.mult(accel, timeS));  //vel = acc*time
-    pos.add(PVector.mult(vel, timeS));    //pos = vel*time
-    force.x = force.y = 0;                    //pos/vel/accel/force are PVectors created above
+    accel = PVector.div(force, mass);
+    vel.add(PVector.mult(accel, timeS));
+    pos.add(PVector.mult(vel, timeS));
+    force.x = force.y = 0;
     vel.mult(0.99f);
-    elapsed += timeS;                    //Elapsed increases with time
+    elapsed += timeS;
     
   }
   

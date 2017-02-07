@@ -9,6 +9,7 @@ class Asteroid extends GameObject
    float theta;  //Used to decide direction of asteroid
    float speed = 90;
    int alive = 1;      //1 = alive, 0 = dead -- When bullet hits it will set this to 0
+   
     
    public Asteroid(float x, float y, float radius)
    {

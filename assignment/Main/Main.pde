@@ -9,13 +9,14 @@ void setup()
   size(720, 640);  //Recommended ~720,640 -- smaller screen makes it harder to dodge asteroids
   
   //Load the background images
-  //img0 = loadImage("space0.jpg");
-  //img0.resize(width, height); //Resizes the image to be the size of the window
-  //img1 = loadImage("space1.jpg");
-  //img1.resize(width, height); //Resizes the image to be the size of the window
-  //img2 = loadImage("space2.jpg");
-  //img2.resize(width, height); //Resizes the image to be the size of the window
-  
+  /*
+  img0 = loadImage("space0.jpg");
+  img0.resize(width, height); //Resizes the image to be the size of the window
+  img1 = loadImage("space1.jpg");
+  img1.resize(width, height); //Resizes the image to be the size of the window
+  img2 = loadImage("space2.jpg");
+  img2.resize(width, height); //Resizes the image to be the size of the window
+  */
   
   //Pass the info into the userShip class to create their ship controls - This allows the creation of multiple players easily which makes a multiplayer mode easier
   UserShip player1 = new UserShip(width / 2, height / 2, 0, 30, 'w', 's', 'a', 'd', ' '); 
@@ -57,8 +58,8 @@ ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 boolean[] keys = new boolean[1000];  //Used to discern if a key is being held down
 
 int Ttimer = 0;  //Total timer (seconds)
-int timer1, timer2 = 0;   //Timers to track each life's time - Only matters for the first two deaths
-int timer = 0; //This will be the actual timer used to protect the player from being spawn killed
+int timer1, timer2 = 0;   //Timers to track each life's time - Only matters the first two deaths
+int timer = 0; //This will be the actual timer used to protect the playeing spawn killed
 
 //Color of menu border is random every time - (at least 20 so it wont be invisible) - Randomized when compiled to avoid 60 changes per sec
   float cx = random(20,255);
@@ -69,7 +70,6 @@ int timer = 0; //This will be the actual timer used to protect the player from b
 void menu()  //Called from setup to display a menu on start-up
 {
   background(0);
-  //image(img0, 0, 0);
   fill(0);
   lives = 3;  //Life counter reset in menu
   
@@ -174,7 +174,6 @@ void draw()
   else if(screen == 2)
   {
       background(0);
-      //image(img2, 0, 0);
       stroke(255);  //Assigns color to objects being created in game
       
       
@@ -198,9 +197,7 @@ void draw()
 
 void onePlayer()
 {
-  
       background(0);
-      //image(img1, 0, 0);
       stroke(255);  //Assigns color to objects being created in game
       
       
@@ -214,6 +211,21 @@ void onePlayer()
       if(Ccounter<Tcounter)    //If current number < Total number - Spawn asteroids until there is enough
       {
         spawn();  //call function to spawn asteroids
+      }
+      
+      
+      //Create power-ups as a reward for score
+      float pposx, pposy;  //power up position x/y
+      pposx = random((width/3),(2*width/3));  //random position in middle 3rd of the screen
+      pposy = random((height/5), (4*height/5));  //random btween middle 60% of screen
+      
+      int target = 1000;  //The target score for a power-up
+      if(score == target)
+      {
+        println("Power-Up Deployed");
+        gameObjects.add(new PowerUp(pposx, pposy));
+        target = target*5;  //Means power ups at 1k, 5k, 25k and 125k
+        
       }
       
       
