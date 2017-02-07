@@ -142,6 +142,7 @@ void draw()
   {
     
     menu();    //call the menu function
+    lives = 3;  //Life counter reset
     
   }
   else if(screen == 1)
@@ -154,7 +155,6 @@ void draw()
     }
     else if(lives == 0)
       {
-        lives = 3;  //Life counter reset
         endGame();
       }
       

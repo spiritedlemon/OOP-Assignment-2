@@ -1,15 +1,26 @@
 class PowerUp extends GameObject
 {
   
-  float temp = 0;  //used to choose one or two randomly
-  int tempi = 0;    //Converts the random float value to an int
+  float rand = 0;  //used to choose one or two randomly
+  int randi = 0;    //Converts the random float value to an int
   int temptimer = 0;   //Used to track the life of the powerUp
+  int T2timer;
   
    PowerUp(float x, float y)
    {
      
      pos = new PVector(x,y);
      
+   }
+   
+   void action()
+   {
+     rand = random(1,2);  
+     randi = round(rand);
+         
+          
+     powerUp = randi;      //This will activate the power up
+          
    }
    
    void update()
@@ -24,17 +35,11 @@ class PowerUp extends GameObject
         if (dist(go.pos.x, go.pos.y, this.pos.x, this.pos.y) < t.radius)
         {
           gameObjects.remove(this);
+          action();  //fnc to randomly choose 1 or 2
           
-          
-          temp = random(1,2);
-          tempi = int(temp);
-          
-          
-            powerUp = tempi;      //This will activate the power up
         }
       }
     }
-     
      
      
    }

@@ -153,10 +153,11 @@ class UserShip extends GameObject
           Asteroid t = (Asteroid) go;  //asteroid temp(t)
           if (dist(go.pos.x, go.pos.y, this.pos.x, this.pos.y) < t.radius)
           {
-            if(timer > 3)
+            if(timer >= 3)
             {
               gameObjects.remove(this);
               reset = 0;              //sets this to 0, destroying the player's ship and calling the setup() fnc in main
+              powerUp = 0;
               lives--;
               
               
