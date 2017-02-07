@@ -51,7 +51,7 @@ int target = 1000;                //The target score for a power-up
 int screen = 0;                  //Used to navigate screens - set to one so its easier to test new features  -  default 0
 boolean clickChange = false;     //When player lives hits 0 this is set to true and onClick the player will be returned to the menu  -  default = false
 
-int score = 990;                   //Global variable to track player's score
+int score = 1000;                   //Global variable to track player's score
 int reset = 1;                   //Used to track if the ship is hit by an Asteroid - used in draw() and the UserShip class  -  default = 1
 int lives = 3;                   //The player's life counter  -  default = 3
 
@@ -72,7 +72,6 @@ void menu()  //Called from setup to display a menu on start-up
 {
   background(0);
   fill(0);
-  lives = 3;  //Life counter reset in menu
   
   stroke(cx, cy, cz);  //Variables are global and random at time of compile
   
@@ -155,6 +154,23 @@ void draw()
     }
     else if(lives == 0)
       {
+        lives = 3;  //Life counter reset
+        endGame();
+      }
+      
+  }
+  else if(screen == 2)
+  {
+      twoPlayer();
+  }
+  else
+  {
+     screen = 0; 
+  }
+}
+
+void endGame()
+{
         PFont f;
         float fontSize = ( (height * width)/15000 );   //Font size scales with chosen display dimensions
         f = createFont("Arial", 18, true); // true -> anti-aliasing on
@@ -165,35 +181,7 @@ void draw()
         text("GAME OVER", width *0.3f, height *0.5f);
         
         text("Click To Return To Menu", width *0.15f, height *0.6f);
-        clickChange = true;  //When 'True', screen will be set to 0 on click
-        
-        
-        
-      }
-      
-  }
-  else if(screen == 2)
-  {
-      background(0);
-      stroke(255);  //Assigns color to objects being created in game
-      
-      
-      for (int i = gameObjects.size() -1 ; i >= 0  ; i --)
-      {
-        GameObject go = gameObjects.get(i); 
-        go.update();
-        go.render();    
-      }
-      
-      if(Ccounter<Tcounter)    //If current number < Total number - Spawn asteroids until there is enough
-      {
-        spawn();  //call function to spawn asteroids
-      }
-  }
-  else
-  {
-     screen = 0; 
-  }
+        clickChange = true;  //When 'True', screen will be set to 0 on click 
 }
 
 void onePlayer()
@@ -255,7 +243,25 @@ void onePlayer()
       }
       
       
-  
+}//End of onePlayer()
+
+void twoPlayer()
+{
+      background(0);
+      stroke(255);  //Assigns color to objects being created in game
+      
+      
+      for (int i = gameObjects.size() -1 ; i >= 0  ; i --)
+      {
+        GameObject go = gameObjects.get(i); 
+        go.update();
+        go.render();    
+      }
+      
+      if(Ccounter<Tcounter)    //If current number < Total number - Spawn asteroids until there is enough
+      {
+        spawn();  //call function to spawn asteroids
+      }
 }
 
 void spawn()
@@ -284,7 +290,7 @@ void spawn()
   
   if(Ccounter == 4)
   {
-    Ccounter = Ccounter+3;    //This is so later only every Fourth small asteroid will spawn another big one ( otherwise there is far too many asteroids )
+    Ccounter = Ccounter+1;    //This is so later only every Second tiny asteroid will spawn another big one ( otherwise there is far too many asteroids )
   }
   
 }

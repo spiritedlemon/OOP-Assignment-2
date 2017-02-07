@@ -101,6 +101,7 @@ class Asteroid extends GameObject
    {
      pushMatrix();
      
+     stroke(255);
      fill(0);
      ellipse(pos.x, pos.y, radius, radius);
      
