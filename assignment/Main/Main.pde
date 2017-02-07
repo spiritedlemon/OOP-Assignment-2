@@ -45,12 +45,13 @@ float timeS = 1.0f / 60.0f;  //This variable tracks time passing - Used to kill 
 float initialRadius;          //This is used for the asteroids size  -  This is actually their diameter but w/e
 int Tcounter = 4;                //This will increment ~ every time a small asteroid is destroyed up until 10 (TotalCounter)
 int Ccounter = 0;                //This will be used to spawn the initial asteroids (CurrentCounter)
-int powerUp = 0;                 //Default = 0 -- at 1 shoot quicker -- at 2 asteroids slow down -- at 3 ???? - Random reward - Spawn at 0, 10k, 20k...
+int powerUp = 0;                 //Default = 0 -- at 1 shoot quicker -- at 2 asteroids slow down -- at 3 ???? - Random reward - Spawn at 1k, 5k, 25k...
+int target = 1000;                //The target score for a power-up
 
 int screen = 0;                  //Used to navigate screens - set to one so its easier to test new features  -  default 0
 boolean clickChange = false;     //When player lives hits 0 this is set to true and onClick the player will be returned to the menu  -  default = false
 
-int score = 0;                   //Global variable to track player's score
+int score = 990;                   //Global variable to track player's score
 int reset = 1;                   //Used to track if the ship is hit by an Asteroid - used in draw() and the UserShip class  -  default = 1
 int lives = 3;                   //The player's life counter  -  default = 3
 
@@ -219,12 +220,11 @@ void onePlayer()
       pposx = random((width/3),(2*width/3));  //random position in middle 3rd of the screen
       pposy = random((height/5), (4*height/5));  //random btween middle 60% of screen
       
-      int target = 1000;  //The target score for a power-up
-      if(score == target)
+      if(score >= target)
       {
         println("Power-Up Deployed");
         gameObjects.add(new PowerUp(pposx, pposy));
-        target = target*5;  //Means power ups at 1k, 5k, 25k and 125k
+        target = target*5;  //Means power ups at 1k, 5k, 25k and 125k  -  Needs to be done on pick-up
         
       }
       

@@ -1,31 +1,30 @@
 class PowerUp extends GameObject
 {
-  PVector ppos;
   
   
-  public PowerUp(float x, float y)
+  
+   PowerUp(float x, float y)
    {
      
-     ppos = new PVector(x,y);
+     pos = new PVector(x,y);
      
    }
    
+   void update()
+   {
+     
+   }
+    
+   void render()
+   {
+      
+     pushMatrix();
+      
+      fill(255, 255, 0);
+     rect(pos.x, pos.y, 50, 50);
+      
+     popMatrix();
+      
+  }
   
-}
-
-
-
-void update()
-{
-  
-}
-
-void render()
-{
-  
-  pushMatrix();
-  
-  
-  popMatrix();
-  
-}
+}//end of power up class
