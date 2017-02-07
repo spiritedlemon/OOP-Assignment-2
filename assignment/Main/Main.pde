@@ -56,6 +56,10 @@ int lives = 3;                   //The player's life counter  -  default = 3
 ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 boolean[] keys = new boolean[1000];  //Used to discern if a key is being held down
 
+int Ttimer = 0;  //Total timer (seconds)
+int timer1, timer2 = 0;   //Timers to track each life's time - Only matters for the first two deaths
+int timer = 0; //This will be the actual timer used to protect the player from being spawn killed
+
 //Color of menu border is random every time - (at least 20 so it wont be invisible) - Randomized when compiled to avoid 60 changes per sec
   float cx = random(20,255);
   float cy = random(20,255);
@@ -132,8 +136,7 @@ void mousePressed()
 
 
 void draw()
-{
-  
+{  
   
   if(screen == 0)
   {

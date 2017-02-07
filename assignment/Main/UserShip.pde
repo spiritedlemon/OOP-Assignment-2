@@ -78,6 +78,11 @@ class UserShip extends GameObject
     forward.x = sin(theta);    //Forward is a PVector created in the above UserShip function
     forward.y  = -cos(theta);
     
+    
+    Ttimer = int(millis()/1000);  //creates a timer which tracks seconds passing
+    timer = Ttimer - (timer1+timer2); //Total minus each round's time  
+    
+    
     //Controls to move the ship
     if (checkKey(up))
     {
@@ -135,12 +140,26 @@ class UserShip extends GameObject
           Asteroid t = (Asteroid) go;  //asteroid temp(t)
           if (dist(go.pos.x, go.pos.y, this.pos.x, this.pos.y) < t.radius)
           {
-            gameObjects.remove(this);
-            reset = 0;              //sets this to 0, destroying the player's ship and calling the setup() fnc in main
-            lives--;
+            if(timer > 3)
+            {
+              
+              println(timer);
+              gameObjects.remove(this);
+              reset = 0;              //sets this to 0, destroying the player's ship and calling the setup() fnc in main
+              lives--;
+              
+              if(lives == 2)
+              {
+                timer1 = Ttimer;  //reset the timer to protect the player for 3 seconds
+              }
+              else if(lives == 1)
+              {
+                timer2 = Ttimer - timer1;
+              }
+            }//End of timer if loop
           }
         }
-      }
+      }//End of for loop
     
     
     
