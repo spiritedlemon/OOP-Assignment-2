@@ -18,8 +18,8 @@ void setup()
   
   
   //Pass the info into the userShip class to create their ship controls - This allows the creation of multiple players easily which makes a multiplayer mode easier
-  UserShip player1 = new UserShip(width / 2, height / 2, 0, 30, 'w', 's', 'a', 'd', ' '); 
-  UserShip player2 = new UserShip(width / 2, height / 2, 0, 30, 'o', 'l', 'k', ';', 'p'); 
+  UserShip player1 = new UserShip(width / 2, height / 2, 0, 30, 'w', 's', 'a', 'd', ' ', 0); 
+  UserShip player2 = new UserShip(width / 2, height / 2, 0, 30, 'o', 'l', 'k', ';', 'p', 0); 
   
   
   if(screen == 1)
@@ -28,18 +28,28 @@ void setup()
   }
   else if(screen == 2)
   {
-    gameObjects.add(player1);
-    gameObjects.add(player2);
-  }
+    
+    if(player1.hit == 0)  //If p1 died, respawn and reset 'hit' variable
+    {
+      gameObjects.add(player1);
+      player1.hit = 1;
+    }
+    if(player2.hit == 0)//If p2 died, respawn and reset 'hit' variable
+    {
+      gameObjects.add(player2);
+      player2.hit = 1;
+    }
+    
+  }//End of Else if outer
   
-}
+}//End of Setup()
 
 
 //Variables
 PImage img, img2;  
 
 float timeS = 1.0f / 60.0f;  //This variable tracks time passing - Used to kill bullets that have been alive too long
-float initialRadius;          //This is used for the asteroids size  -  This is actually their diameter but w/e
+float initialRadius;          //This is used for the asteroids size 
 int Tcounter = 4;                //This will increment ~ every time a small asteroid is destroyed up until 10 (TotalCounter)
 int Ccounter = 0;                //This will be used to spawn the initial asteroids (CurrentCounter)
 int powerUp = 0;                 //Default = 0 -- at 1 shoot quicker -- at 2 asteroids slow down -- at 3 ???? - Random reward - Spawn at 1k, 5k, 25k...
@@ -123,7 +133,7 @@ void mousePressed()
     
   }//end of screen == 0 if statement
   
-  if(screen == 1)
+  if(screen == 1 || screen == 2 || screen == 3)
   {
     if(clickChange == true)
     {
@@ -132,7 +142,7 @@ void mousePressed()
     }
     
     
-  }//end of screen == 1 if statement
+  }//end of screen == x if statement
   
 }
 
@@ -427,7 +437,14 @@ void highScores()
   text(rec1, width*0.45f, height*0.25f);
   text(rec2, width*0.45f, height*0.5f);
   text(rec3, width*0.45f, height*0.75f);
-}
+  
+  
+  
+  clickChange = true;  //When 'True', screen will be set to 0 on click
+}//End of highscore()
+
+
+
 
 void spawn()
 {

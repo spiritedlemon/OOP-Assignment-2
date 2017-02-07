@@ -11,6 +11,7 @@ class UserShip extends GameObject
   float mass = 1;
   PShape shape;
   char up, down, left, right, shoot;
+  int hit; //Used to track who was hit in multiplayer
   
   PVector force;
   float power = 100;
@@ -21,7 +22,7 @@ class UserShip extends GameObject
   
   
   //Values passed into this fnc from main, allocating player controls and size
-  UserShip(float x, float y, float theta, float size, char up, char down, char left, char right, char shoot)
+  UserShip(float x, float y, float theta, float size, char up, char down, char left, char right, char shoot, int hit)
   {
     pos = new PVector(x, y);
     forward = new PVector(0, -1);
@@ -37,6 +38,7 @@ class UserShip extends GameObject
     this.up = up;
     this.down = down;
     this.shoot = shoot;
+    this.hit = hit;
     create();
     
   }
@@ -159,6 +161,7 @@ class UserShip extends GameObject
               reset = 0;              //sets this to 0, destroying the player's ship and calling the setup() fnc in main
               powerUp = 0;
               lives--;
+              this.hit = 0;
               
               
               //reset the timer to protect the player for 3 seconds
