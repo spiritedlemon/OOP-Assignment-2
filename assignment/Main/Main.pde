@@ -26,12 +26,10 @@ void setup()
   
   if(screen == 1)
   {
-    println("One Player Mode");
     gameObjects.add(player1);
   }
   else if(screen == 2)
   {
-    println("Two Player Survival");
     gameObjects.add(player1);
     gameObjects.add(player2);
   }
@@ -52,9 +50,10 @@ int target = 1000;                //The target score for a power-up
 int screen = 0;                  //Used to navigate screens - set to one so its easier to test new features  -  default 0
 boolean clickChange = false;     //When player lives hits 0 this is set to true and onClick the player will be returned to the menu  -  default = false
 
-int score = 1000;                   //Global variable to track player's score
+int score = 0;                   //Global variable to track player's score
+String[] scoreT;                 //Temp string array variable used to write score to a file
 int reset = 1;                   //Used to track if the ship is hit by an Asteroid - used in draw() and the UserShip class  -  default = 1
-int lives = 3;                   //The player's life counter  -  default = 3
+int lives;                   //The player's life counter  -  default = 3
 
 ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 boolean[] keys = new boolean[1000];  //Used to discern if a key is being held down
@@ -110,17 +109,18 @@ void mousePressed()
       lives = 3; 
       screen = 1;    //The value of screen is used in both setup() and draw() to find which game mode is being used
       setup();      //Call setup to create the necessary player ships 
+      println("One Player Mode");
     }
     else if((mouseX > width/6) && (mouseX < 5*width/6) && (mouseY > 4*height/10) && (mouseY < 6*height/10) )
     {
       lives = 6;
       screen = 2;
       setup();
+      println("Two Player Mode");
     }
     else if((mouseX > width/6) && (mouseX < 5*width/6) && (mouseY > 7*height/10) && (mouseY < 9*height/10))
     {
       screen = 3;
-      println("Coming Soon");
     }
     
   }//end of screen == 0 if statement
@@ -138,7 +138,7 @@ void mousePressed()
   
 }
 
-
+String kk;
 void draw()
 {  
   
@@ -157,6 +157,10 @@ void draw()
     }
     else if(lives == 0)
     {
+      //scoreT[0] = Integer.toString(score);
+      //saveStrings("highscores.txt", scoreT);
+      println(score);
+      score = 0;
       endGame();
     }
       
@@ -173,9 +177,9 @@ void draw()
       endGame2();
     }
   }
-  else
+  else if(screen == 3)
   {
-     screen = 0; 
+     highScores(); 
   }
 }
 
@@ -321,6 +325,38 @@ void twoPlayer()    //Team survival
         reset = 1;
       }
       
+}//End of Two Player
+
+
+String records[];
+int rec1, rec2, rec3;  //Top three highest scores in file
+int current;
+
+void highScores()
+{
+  records = loadStrings("highScores.txt");
+  
+  //Find the three highest scores
+  
+  //Assume first three are largest
+  rec1 = int(records[0]);
+  rec2 = int(records[1]);
+  rec3 = int(records[2]);
+  
+  //Then compare to each other
+  
+  
+  
+  //Create the font color and size
+  PFont f;
+  float fontSize = ( (height * width)/15000 );   //Font size scales with chosen display dimensions
+  f = createFont("Arial", 18, true); // true -> anti-aliasing on
+  textFont(f, fontSize);  //sets font size of 'PFont' f
+  fill(255);
+  
+  text(rec1, width*0.45f, height*0.25f);
+  text(rec2, width*0.45f, height*0.5f);
+  text(rec3, width*0.45f, height*0.75f);
 }
 
 void spawn()
