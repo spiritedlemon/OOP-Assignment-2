@@ -39,7 +39,7 @@ class Bullet extends GameObject
     forward.y = - cos(theta);      //These decide the direction the bullet travels and its orientation
     
     
-    pos.add(PVector.mult(PVector.mult(forward, speed), timeDelta));  //Causes the bullet to move forward
+    pos.add(PVector.mult(PVector.mult(forward, speed), timeS));  //Causes the bullet to move forward
     if (pos.x > width)                                               //Causes the bullet to re-enter another part of the screen
     {
       pos.x = 0;
@@ -56,7 +56,7 @@ class Bullet extends GameObject
     {
       pos.y = height;
     }
-    alive += timeDelta;
+    alive += timeS;
     if (alive > timeLeft)
     {
       gameObjects.remove(this);  //This removes the bullet after a few seconds

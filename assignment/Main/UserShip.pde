@@ -143,7 +143,6 @@ class UserShip extends GameObject
             if(timer > 3)
             {
               
-              println(timer);
               gameObjects.remove(this);
               reset = 0;              //sets this to 0, destroying the player's ship and calling the setup() fnc in main
               lives--;
@@ -165,11 +164,11 @@ class UserShip extends GameObject
     
     
     accel = PVector.div(force, mass);         //f = ma so a = f/m
-    vel.add(PVector.mult(accel, timeDelta));  //vel = acc*time
-    pos.add(PVector.mult(vel, timeDelta));    //pos = vel*time
+    vel.add(PVector.mult(accel, timeS));  //vel = acc*time
+    pos.add(PVector.mult(vel, timeS));    //pos = vel*time
     force.x = force.y = 0;                    //pos/vel/accel/force are PVectors created above
     vel.mult(0.99f);
-    elapsed += timeDelta;                    //Elapsed increases with time
+    elapsed += timeS;                    //Elapsed increases with time
     
   }
   

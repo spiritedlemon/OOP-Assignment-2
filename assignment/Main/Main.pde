@@ -40,10 +40,10 @@ void setup()
 //Variables
 PImage img0, img1, img2;  //Zero is the home screen - One is one player- Two is two player
 
-float timeDelta = 1.0f / 60.0f;  //This variable tracks time passing - Used to kill bullets that have been alive too long
+float timeS = 1.0f / 60.0f;  //This variable tracks time passing - Used to kill bullets that have been alive too long
 float initialRadius;          //This is used for the asteroids size  -  This is actually their diameter but w/e
-int Tcounter = 4;                //This will increment ~ every time an asteroid is destroyed (TotalCounter)
-int Ccounter = 0;                //This will keep track of the number of asteroids currently spawned (CurrentCounter)
+int Tcounter = 4;                //This will increment ~ every time a small asteroid is destroyed up until 10 (TotalCounter)
+int Ccounter = 0;                //This will be used to spawn the initial asteroids (CurrentCounter)
 int powerUp = 0;                 //Default = 0 -- at 1 shoot quicker -- at 2 asteroids slow down -- at 3 ???? - Random reward - Spawn at 0, 10k, 20k...
 
 int screen = 0;                  //Used to navigate screens - set to one so its easier to test new features  -  default 0
@@ -267,8 +267,13 @@ void spawn()
   initialRadius = random(50, 100);
   
   gameObjects.add(new Asteroid(aposx, aposy, initialRadius));
-   
+  
   Ccounter++;  //Counter for current num of asteroids increments
+  
+  if(Ccounter == 4)
+  {
+    Ccounter = Ccounter+3;    //This is so later only every Fourth small asteroid will spawn another big one ( otherwise there is far too many asteroids )
+  }
   
 }
 

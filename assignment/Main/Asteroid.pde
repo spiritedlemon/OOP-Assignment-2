@@ -27,6 +27,13 @@ class Asteroid extends GameObject
      {
        gameObjects.remove(this);
        
+       //When a small asteroid is destroyed another the counter drops and every fourth kill spawns a new bi asteroid
+       if(Tcounter< 6)
+       {
+         Ccounter--;
+       }
+       
+       
        score = score + 100;
      }
      else if(radius > 50 && radius < 76)  //Medium sized asteroid - Splits in two
@@ -57,7 +64,7 @@ class Asteroid extends GameObject
    void update()
    {
      
-      pos.add(PVector.mult(PVector.mult(forward, speed), timeDelta));  //Causes the object to move 
+      pos.add(PVector.mult(PVector.mult(forward, speed), timeS));  //Causes the object to move 
       
       //below stops the asteroids leaving the screen [They re-appear on the other side]
       if (pos.x > width)
