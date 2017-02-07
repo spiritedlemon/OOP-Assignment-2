@@ -1,7 +1,9 @@
 class PowerUp extends GameObject
 {
   
-  
+  float temp = 0;  //used to choose one or two randomly
+  int tempi = 0;    //Converts the random float value to an int
+  int temptimer = 0;   //Used to track the life of the powerUp
   
    PowerUp(float x, float y)
    {
@@ -23,9 +25,12 @@ class PowerUp extends GameObject
         {
           gameObjects.remove(this);
           
-          println("done");
           
-          powerUp = 1;      //This will activate the power up
+          temp = random(1,2);
+          tempi = int(temp);
+          
+          
+            powerUp = tempi;      //This will activate the power up
         }
       }
     }

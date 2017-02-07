@@ -7,7 +7,7 @@ class Asteroid extends GameObject
    float limit = 0.05;
    PVector velocity;
    float theta;  //Used to decide direction of asteroid
-   float speed = 90;
+   float speed;  //Set to 90 in update()
    int alive = 1;      //1 = alive, 0 = dead -- When bullet hits it will set this to 0
    
     
@@ -64,6 +64,15 @@ class Asteroid extends GameObject
     //This fnc is used to move the asteroids
    void update()
    {
+     
+     if(powerUp == 1)  //When power up is active
+    {
+      speed = 30;   
+    }
+    else if(powerUp != 1)  //Revert back to normal
+    {
+      speed = 90;    
+    }
      
       pos.add(PVector.mult(PVector.mult(forward, speed), timeS));  //Causes the object to move 
       
