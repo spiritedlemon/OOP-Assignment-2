@@ -49,9 +49,9 @@ int target = 1000;               //The target score for a power-up
 int screen = 0;                  //Used to navigate screens - set to one so its easier to test new features  -  default 0
 boolean clickChange = false;     //When player lives hits 0 this is set to true and onClick the player will be returned to the menu  -  default = false
 
-int score = 0;                   //Global variable to track player's score
+int score = 1000;                   //Global variable to track player's score
 String[] scoreT;                 //Temp string array variable used to write score to a file
-int reset = 1;                   //Used to track if the ship is hit by an Asteroid - used in draw() and the UserShip class  -  default = 1
+int reset;                       //Used to track if the ship is hit by an Asteroid - used in mousePressed()/twoPlayer() and the UserShip class  -  default = 1
 int lives;                       //The player's life counter  -  default = 3  --  Set in mousePressed()
 
 ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
@@ -234,6 +234,7 @@ void onePlayer()
 {
       background(0);
       stroke(255);  //Assigns color to objects being created in game
+      
       
       
       for (int i = gameObjects.size() -1 ; i >= 0  ; i --)

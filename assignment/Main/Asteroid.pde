@@ -66,7 +66,7 @@ class Asteroid extends GameObject
      
      if(powerUp == 2)  //When power up is active
     {
-      speed = 30;   
+      speed = 65;   
     }
     else if(powerUp != 2)  //Revert back to normal
     {

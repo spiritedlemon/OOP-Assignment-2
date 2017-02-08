@@ -1,10 +1,11 @@
 class PowerUp extends GameObject
 {
   
-  float rand = 0;  //used to choose one or two randomly
-  int randi = 0;    //Converts the random float value to an int
+  float rand = 0;      //used to choose one or two randomly
+  int randi = 0;       //Converts the random float value to an int
   int temptimer = 0;   //Used to track the life of the powerUp
   int T2timer;
+  //float thetaP = 0;     //Used to rotate the power-ups
   
    PowerUp(float x, float y)
    {
@@ -19,7 +20,8 @@ class PowerUp extends GameObject
      randi = round(rand);
          
           
-     powerUp = randi;      //This will activate the power up
+     powerUp = randi;            //This will activate the power up
+     println("powerup activated");
           
    }
    
@@ -28,11 +30,11 @@ class PowerUp extends GameObject
      
     for(int i = 0; i < gameObjects.size(); i ++)
     {
-      GameObject go = gameObjects.get(i);
-      if (go instanceof UserShip)
+      GameObject gs = gameObjects.get(i);
+      if (gs instanceof UserShip)
       {
-        UserShip t = (UserShip) go;  //ship temp variable(t)
-        if (dist(go.pos.x, go.pos.y, this.pos.x, this.pos.y) < t.radius)
+        UserShip t = (UserShip) gs;            //ship temp variable(t)
+        if (dist(gs.pos.x, gs.pos.y, this.pos.x, this.pos.y) < t.radius)
         {
           gameObjects.remove(this);
           action();  //fnc to randomly choose 1 or 2
@@ -40,7 +42,7 @@ class PowerUp extends GameObject
         }
       }
     }
-     
+    
      
    }
     
