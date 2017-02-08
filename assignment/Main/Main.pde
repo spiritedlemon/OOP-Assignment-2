@@ -78,7 +78,7 @@ float cz = random(20,255);
 
 void menu()  //Called from setup to display a menu on start-up
 {
-  background(0);
+  //background(0);
   image(img, 0, 0);
   fill(0);
   
@@ -114,7 +114,7 @@ void mousePressed()
   {
     if( (mouseX > width/6) && (mouseX < 5*width/6) && (mouseY > height/10) && (mouseY < 3*height/10) )    //Refers to the first button of the menu
     {
-      lives = 3; 
+      lives = 1; 
       screen = 1;    //The value of screen is used in both setup() and draw() to find which game mode is being used
       setup();      //Call setup to create the necessary player ships 
       println("One Player Mode");
@@ -139,6 +139,7 @@ void mousePressed()
     {
       screen = 0;
       clickChange = false;
+      loop();
     }
     
     
@@ -152,6 +153,7 @@ void draw()
   
   if(screen == 0)
   {
+    
     menu();    //call the menu function
     
   }
@@ -165,10 +167,7 @@ void draw()
     }
     else if(lives == 0)
     {
-      //scoreT[0] = Integer.toString(score);
-      //saveStrings("highscores.txt", scoreT);
-      println(score);
-      score = 0;
+      
       endGame();
     }
       
@@ -193,6 +192,7 @@ void draw()
 
 void endGame()
 {
+        noLoop();
         PFont f;
         float fontSize = ( (height * width)/15000 );   //Font size scales with chosen display dimensions
         f = createFont("Arial", 18, true); // true -> anti-aliasing on
@@ -204,6 +204,15 @@ void endGame()
         
         text("Click To Return To Menu", width *0.15f, height *0.6f);
         clickChange = true;  //When 'True', screen will be set to 0 on click 
+        
+        scoreT = loadStrings("highscores.txt");
+        int i = scoreT.length;
+        scoreT = expand(scoreT, i+1);
+        scoreT[i] = str(score);
+        saveStrings("highscores.txt", scoreT);
+        score = 0;
+        
+        
 }
 
 
