@@ -1,7 +1,7 @@
 //C15413218 - Simon O'Leary - DT228/2 OOP Assignment 2
 
 //Game is called Asteroids: The player shoots asteroids which explode and give score
-//Score or Round??
+//Score based single player , Survival based multiplayer
 
 void setup()
 {
@@ -18,8 +18,8 @@ void setup()
   
   
   //Pass the info into the userShip class to create their ship controls - This allows the creation of multiple players easily which makes a multiplayer mode easier
-  UserShip player1 = new UserShip(width / 2, height / 2, 0, 30, 'w', 's', 'a', 'd', ' ', 0); 
-  UserShip player2 = new UserShip(width / 2, height / 2, 0, 30, 'o', 'l', 'k', ';', 'p', 0); 
+  UserShip player1 = new UserShip(width / 2, height / 2, 0, 30, 'w', 's', 'a', 'd', ' '); 
+  UserShip player2 = new UserShip(width / 2, height / 2, 0, 30, 'o', 'l', 'k', ';', 'p'); 
   
   
   if(screen == 1)
@@ -28,17 +28,8 @@ void setup()
   }
   else if(screen == 2)
   {
-    
-    if(player1.hit == 0)  //If p1 died, respawn and reset 'hit' variable
-    {
-      gameObjects.add(player1);
-      player1.hit = 1;
-    }
-    if(player2.hit == 0)//If p2 died, respawn and reset 'hit' variable
-    {
-      gameObjects.add(player2);
-      player2.hit = 1;
-    }
+    gameObjects.add(player1);
+    gameObjects.add(player2);
     
   }//End of Else if outer
   
@@ -48,12 +39,12 @@ void setup()
 //Variables
 PImage img, img2;  
 
-float timeS = 1.0f / 60.0f;  //This variable tracks time passing - Used to kill bullets that have been alive too long
-float initialRadius;          //This is used for the asteroids size 
+float timeS = 1.0f / 60.0f;      //This variable tracks time passing - Used to kill bullets that have been alive too long
+float initialRadius;             //This is used for the asteroids size 
 int Tcounter = 4;                //This will increment ~ every time a small asteroid is destroyed up until 10 (TotalCounter)
 int Ccounter = 0;                //This will be used to spawn the initial asteroids (CurrentCounter)
-int powerUp = 0;                 //Default = 0 -- at 1 shoot quicker -- at 2 asteroids slow down -- at 3 ???? - Random reward - Spawn at 1k, 5k, 25k...
-int target = 1000;                //The target score for a power-up
+int powerUp = 0;                 //Default = 0 -- at 1 shoot quicker -- at 2 asteroids slow down - Random reward - Spawn at 1k, 5k, 25k, 125k...
+int target = 1000;               //The target score for a power-up
 
 int screen = 0;                  //Used to navigate screens - set to one so its easier to test new features  -  default 0
 boolean clickChange = false;     //When player lives hits 0 this is set to true and onClick the player will be returned to the menu  -  default = false
@@ -61,7 +52,7 @@ boolean clickChange = false;     //When player lives hits 0 this is set to true 
 int score = 0;                   //Global variable to track player's score
 String[] scoreT;                 //Temp string array variable used to write score to a file
 int reset = 1;                   //Used to track if the ship is hit by an Asteroid - used in draw() and the UserShip class  -  default = 1
-int lives;                   //The player's life counter  -  default = 3
+int lives;                       //The player's life counter  -  default = 3  --  Set in mousePressed()
 
 ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 boolean[] keys = new boolean[1000];  //Used to discern if a key is being held down
@@ -78,7 +69,6 @@ float cz = random(20,255);
 
 void menu()  //Called from setup to display a menu on start-up
 {
-  //background(0);
   image(img, 0, 0);
   fill(0);
   
@@ -108,20 +98,23 @@ void menu()  //Called from setup to display a menu on start-up
 
 
 //Used to navigate the menu with the mouse
+//Used to return to the menu upon game completion
 void mousePressed()
 {
   if(screen == 0)
   {
     if( (mouseX > width/6) && (mouseX < 5*width/6) && (mouseY > height/10) && (mouseY < 3*height/10) )    //Refers to the first button of the menu
     {
-      lives = 1; 
+      lives = 3; 
+      reset = 1;
       screen = 1;    //The value of screen is used in both setup() and draw() to find which game mode is being used
-      setup();      //Call setup to create the necessary player ships 
+      setup();       //Call setup to create the necessary player ships 
       println("One Player Mode");
     }
     else if((mouseX > width/6) && (mouseX < 5*width/6) && (mouseY > 4*height/10) && (mouseY < 6*height/10) )
     {
       lives = 6;
+      reset = 2;
       screen = 2;
       setup();
       println("Two Player Mode");
@@ -147,7 +140,6 @@ void mousePressed()
   
 }
 
-String kk;
 void draw()
 {  
   
@@ -299,6 +291,8 @@ void onePlayer()
       
 }//End of onePlayer()
 
+
+
 void twoPlayer()    //Team survival
 {
       background(0);
@@ -339,7 +333,7 @@ void twoPlayer()    //Team survival
       if(reset == 0)    //I.e. if you fly into an asteroid
       {
         setup();
-        reset = 1;
+        reset = 2;
       }
       
 }//End of Two Player

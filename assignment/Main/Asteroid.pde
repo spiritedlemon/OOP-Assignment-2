@@ -1,14 +1,12 @@
-//This class determines the appearance of the asteroids and how they re-act upon collision
+//This class determines the appearance of the asteroids and how they react upon collision
 
 class Asteroid extends GameObject
 {
    float radius;
-   int maxLimit = 1;    //This will be used to track the max number of asteroids at any one time [maybe]
-   float limit = 0.05;
    PVector velocity;
-   float theta;  //Used to decide direction of asteroid
-   float speed;  //Set to 90 in update()
-   int alive = 1;      //1 = alive, 0 = dead -- When bullet hits it will set this to 0
+   float theta;          //Used to decide direction of asteroid
+   float speed;          //Set to 90 in update()
+   int alive = 1;        //1 = alive, 0 = dead -- When bullet hits it will set this to 0
    
     
    public Asteroid(float x, float y, float radius)
@@ -20,6 +18,7 @@ class Asteroid extends GameObject
      forward.x = random(-1, 1);  //Try keep to small numbers or moves to quickly
      forward.y = random(-1, 2);  //These are random numbers asssigned to an asteroid on creation to avoid it constantly changing direction
    }
+   
    
    
    void division()  //(Split & break arent allowed) - This function deals with how the asteroids split/divide upon impact
